@@ -19,14 +19,28 @@ watch(isOpen, (newValue) => {
 
 <template>
   <header>
+  <nav>
+    <button
+      :class="isOpen ? 'navbar-burger open' : 'navbar-burger'"
+      @click="toggleMenu"
+    >
+      <span class="navbar-burger-bar"></span>
+    </button>
     <RouterLink to="/" class="logo">
-      <h2 class="logo-title">Mon Logo</h2>
+      <h2 class="logo-title">YA</h2>
     </RouterLink>
-  <transition name="menu-fade">
-  <nav class="navigation">
-    <ul class="nav-items">
+  <ul 
+    class="navigation nav-items"
+    :class="isOpen ? 'open' : ''">
+    
       <li>
         <RouterLink class="links" to="/">Accueil</RouterLink>
+      </li>
+      <li>
+        <RouterLink class="links" to="/">Compétences</RouterLink>
+      </li>
+      <li>
+        <RouterLink class="links" to="/">Projets</RouterLink>
       </li>
       <li>
         <RouterLink class="links" to="/contact">Contact</RouterLink>
@@ -34,19 +48,44 @@ watch(isOpen, (newValue) => {
       <li>
         <RouterLink class="links" to="/about">About</RouterLink>
       </li>
-    </ul>
+    
+  </ul>
   </nav>
-</transition>
-  <button
-      :class="isOpen ? 'navbar-burger open' : 'navbar-burger'"
-      @click="toggleMenu"
-    >
-      <span class="navbar-burger-bar"></span>
-    </button>
   </header>
 </template>
 
 <style lang="scss" scoped>
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem 1rem 0.5rem;
+    position: relative;
+}
+
+.navigation {
+    position: absolute;
+    top: 100%;
+    left: -100%;
+    transform: translateX(-50%);
+    transition: left .6s ease;
+    background: var(--secondary-color);
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+    z-index: 10;
+     li,
+     li a {
+        padding: 1rem 0;
+    }
+
+}
+
+.open {
+  left: 50%;
+}
+
+
 
 /* ---------------------- burger menu -------------------- */
 .navbar-burger {
@@ -74,12 +113,12 @@ watch(isOpen, (newValue) => {
 
 .navbar-burger-bar::before {
     position: absolute;
-    top: -1rem;
+    top: -.8rem;
 }
 
 .navbar-burger-bar::after {
     position: absolute;
-    top: 1rem;
+    top: .8rem;
 }
 
 
@@ -104,32 +143,25 @@ watch(isOpen, (newValue) => {
 
 
 
-
-
-
-/* -----------------transittion vue --------------------*/
-
-.menu-fade-enter-active,
-.menu-fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.menu-fade-enter-from,
-.menu-fade-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.menu-fade-enter-to,
-.menu-fade-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
 /* --- Responsive --- */
 @media (min-width: 1024px) {
+  nav {
+    padding: 1rem 2rem;
+  }
+  .navbar-burger {
+    display: none;
+  }
 
+  .navigation {
+    position: static;
+    transform: none;
+    z-index: 10;
+    width: max-content;display: flex;
+    .nav-items li a {
+        padding: 1rem 3rem;
+    }
+
+}
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     
