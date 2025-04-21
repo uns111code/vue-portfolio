@@ -9,5 +9,8 @@
   --tertiary-color-hover: #cfcfcf;
   --quaternary-color-hover: #797979;
   --border-radius: 1rem;
-  --box-shadow: 1px 1px 5px 5px var(--secondary-color);
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  --radius-100: 100px;
+  --transition: all 0.3s ease-in-out;
 }

@@ -1,5 +1,39 @@
 <script setup>
 import { ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+const route = useRoute();
+const router = useRouter();
+const displayedRoutes = router.options.routes
+
+
+const navPosition = () => {
+  const root = document.querySelector("body");
+
+  if (route.path === "/") {
+    root.style.setProperty("--nav-position", "0");
+  } else if (route.path === "/about") {
+    root.style.setProperty("--nav-position", "1");
+  } else if (route.path === "/competence") {
+    root.style.setProperty("--nav-position", "2");
+  } else if (route.path === "/project") {
+    root.style.setProperty("--nav-position", "3");
+  } else if (route.path === "/contact") {
+    root.style.setProperty("--nav-position", "4");
+  }
+};
+
+//  surveiller l'url
+watch(
+  () => route.path,
+  () => {
+    navPosition();
+  }
+);
+
+// Appeler une fois au démarrage
+navPosition();
+
 
 const isOpen = ref(false);
 
@@ -7,14 +41,24 @@ const toggleMenu = () => {
   isOpen.value = !isOpen.value;
 };
 
-// désactiver/activer le scroll en fonction de l'état du menu
-watch(isOpen, (newValue) => {
-  if (newValue) {
-    document.body.style.overflow = 'hidden'; // empêche le scroll
-  } else {
-    document.body.style.overflow = ''; // réactive le scroll
+// Fonction pour retourner une icône selon le nom de la route
+function getIconClass(name) {
+  switch (name) {
+    case 'home':
+      return 'fa-solid fa-house'
+    case 'about':
+      return 'fa-solid fa-user'
+    case 'competence':
+      return 'fa-solid fa-shapes'
+    case 'project':
+      return 'fa-solid fa-bars-progress'
+    case 'contact':
+      return 'fa-solid fa-phone fa-shake'
+    default:
+      return 'fa-solid fa-circle-question'
   }
-});
+}
+
 </script>
 
 <template>
@@ -27,40 +71,77 @@ watch(isOpen, (newValue) => {
       <span class="navbar-burger-bar"></span>
     </button>
     <RouterLink to="/" class="logo">
-      <h2 class="logo-title">YA</h2>
+      <img src="../assets/img/YA logo.png" alt="">
     </RouterLink>
   <ul 
     class="navigation nav-items"
-    :class="isOpen ? 'open' : ''">
-    
-      <li>
-        <RouterLink class="links" to="/">Accueil</RouterLink>
+    :class="isOpen ? 'open' : ''"
+    >
+      <div class="hori-selector">
+        <div class="left"></div>
+        <div class="right"></div>
+      </div>
+      <li v-for="li in displayedRoutes" :key="li.name" class="item">
+          <RouterLink :to="li.path">
+            <i class="nav-icon" :class="[getIconClass(li.name), li.name]"  :style="{ display: route.name !== li.name ? 'block' : 'none' }"></i
+            >
+              <span class="nav-label" :class="li.name" :style="{ display: route.name === li.name ? 'block' : 'none' }">{{ li.name.toUpperCase() }}</span>
+              
+          </RouterLink>
+      </li>
+
+      <!-- <li>
+        <RouterLink class="links" to="/" @click="toggleMenu">Accueil</RouterLink>
       </li>
       <li>
-        <RouterLink class="links" to="/">Compétences</RouterLink>
+        <RouterLink class="links" to="/about" @click="toggleMenu">Profil</RouterLink>
       </li>
       <li>
-        <RouterLink class="links" to="/">Projets</RouterLink>
+        <RouterLink class="links" to="/competence" @click="toggleMenu">Compétences</RouterLink>
       </li>
       <li>
-        <RouterLink class="links" to="/contact">Contact</RouterLink>
+        <RouterLink class="links" to="/project" @click="toggleMenu">Projets</RouterLink>
       </li>
       <li>
-        <RouterLink class="links" to="/about">About</RouterLink>
-      </li>
-    
+        <RouterLink class="links" to="/contact" @click="toggleMenu">Contact</RouterLink>
+      </li> -->
   </ul>
   </nav>
   </header>
 </template>
 
 <style lang="scss" scoped>
+.logo {
+  height: 82.4px;
+  width: 82.4px;
+  img {
+    transition: var(--transition);
+    filter: hue-rotate(250deg); /* 90deg ≈ vert */
+    border-radius: 50%;
+    height: 10rem;
+    width: 10rem;
+    transform: scale(1.2);
+    mix-blend-mode: multiply;
+  }
+}
+.logo:hover img {
+  filter: hue-rotate(0deg); 
+  transform: scale(1.3);
+}
+
+
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem 1rem 0.5rem;
     position: relative;
+    // border: 1px solid var(--quaternary-color);
+    // border-bottom-right-radius: 8px;
+    // border-bottom-left-radius: 8px;
+    // &:hover {
+    //   border: 1px solid var(--secondary-color);
+    // }
 }
 
 .navigation {
@@ -69,13 +150,12 @@ nav {
     left: -100%;
     transform: translateX(-50%);
     transition: left .6s ease;
-    background: var(--secondary-color);
     width: 100%;
     text-align: center;
-    padding: 1rem 0;
     z-index: 10;
-     li,
-     li a {
+    background-color: var(--secondary-color);
+    li,
+    li a {
         padding: 1rem 0;
     }
 
@@ -84,8 +164,6 @@ nav {
 .open {
   left: 50%;
 }
-
-
 
 /* ---------------------- burger menu -------------------- */
 .navbar-burger {
@@ -145,24 +223,90 @@ nav {
 
 /* --- Responsive --- */
 @media (min-width: 1024px) {
+
+  header {
+    background-color: var(--secondary-color);
+  }
+
   nav {
-    padding: 1rem 2rem;
+    padding: 0;
+    margin: 0 auto;
+    width: clamp(350px, 90vw, 100rem);
   }
   .navbar-burger {
     display: none;
   }
 
   .navigation {
-    position: static;
+    position: relative;
+    top: 0;
+    left: 0;
     transform: none;
     z-index: 10;
-    width: max-content;display: flex;
-    .nav-items li a {
-        padding: 1rem 3rem;
+    width: max-content;
+    display: flex;
+    gap: 2rem;
+    background-color: inherit;
+    li {
+      width: 8rem;
+      text-align: center;
+    }
+    li a {
+        padding: 1rem;
     }
 
 }
+
+header .hori-selector{
+    
+    display:inline-block;
+    position:absolute;
+    height: 75px;
+    width: 128px;
+    bottom: 0;
+    
+    left: calc(20.7% * var(--nav-position));
+    
+    transition-duration:0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background-color: var(--tertiary-color);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    z-index: -10;
+  }
+  .hori-selector .right,
+  .hori-selector .left{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: var(--tertiary-color);
+    bottom: 0px;
+  }
+  .hori-selector .right{
+    right: -25px;
+  }
+  .hori-selector .left{
+    left: -25px;
+  }
+  .hori-selector .right:before,
+  .hori-selector .left:before{
+    content: '';
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--secondary-color);
+  }
+  .hori-selector .right:before{
+    bottom: 0;
+      right: -25px;
+  }
+  .hori-selector .left:before{
+    bottom: 0;
+      left: -25px;
+  }
 }
+
 @media screen and (min-width: 768px) and (max-width: 1023px) {
     
 }

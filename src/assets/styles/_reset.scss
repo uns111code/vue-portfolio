@@ -27,5 +27,27 @@ button {
 }
 
 body {
-    background-color: rgb(78, 73, 73);
+    overflow-x: hidden;
+    --nav-position: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    height: 100%;
+  }
+
+
+
+
+/* --- Responsive --- */
+@media (min-width: 1024px) {
+    body  {
+        overflow-y: hidden;
+    }
+
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    
 }
