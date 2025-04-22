@@ -22,16 +22,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 5rem;
 }
 
 .profil .logo-section {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 10rem;
-  height: 10rem;
-  background-color: var(--tertiary-color);
+  width: 15rem;
+  height: 15rem;
+  background-color: var(--bg-color);
   position: relative;
   border-radius: 50%;
 }
@@ -41,8 +41,8 @@
     transition: var(--transition);
     filter: hue-rotate(250deg); /* 90deg ≈ vert */
     border-radius: 50%;
-    height: 10rem;
-    width: 10rem;
+    height: 15rem;
+    width: 15rem;
   }
 }
 
@@ -59,7 +59,7 @@
    position: absolute;
    height: 100%;
    width: 100%;
-   background-image: conic-gradient(from 0deg ,transparent 30%, var(--secondary-color));
+   background-image: conic-gradient(from 0deg ,transparent 30%, var(--primary-color));
    top: -6px;
    left: -5px;
    z-index: -10;
@@ -95,7 +95,7 @@
 
 .profil .accueil h1 {
   font-size: 40px;
-  color: var(--quaternary-color);
+  color: var(--primary-color);
   text-shadow: var(--text-shadow);
   line-height: 5rem;
 }

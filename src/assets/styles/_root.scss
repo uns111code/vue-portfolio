@@ -1,16 +1,12 @@
 :root {
   // --nav-position: 0;
-  --primary-color: rgb(20, 19, 23);
-  --secondary-color: #48c78e;
-  --tertiary-color: #ffffff;
-  --quaternary-color: #c5c4c4;
-  --primary-color-hover: #0693df;
-  --secondary-color-hover: #58e4a5;
-  --tertiary-color-hover: #cfcfcf;
-  --quaternary-color-hover: #797979;
+  --primary-color: #48c78e;
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #c5c4c4;
+
   --border-radius: 1rem;
   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
   --radius-100: 100px;
   --transition: all 0.3s ease-in-out;
 }

@@ -166,13 +166,13 @@ const submitForm = async () => {
       input {
         background: transparent;
         border: none;
-        border-bottom: 1px solid var(--quaternary-color);
+        border-bottom: 1px solid var(--border-color);
         width: 20rem;
         padding: .5rem 0;
-        caret-color: var(--secondary-color);
+        caret-color: var(--primary-color);
         &:focus {
         outline: none;
-        border-bottom: 1px solid var(--secondary-color);
+        border-bottom: 1px solid var(--primary-color);
       }
 
 
@@ -187,21 +187,21 @@ const submitForm = async () => {
         padding: 1rem .5rem;
         resize: none;
         border-radius: 8px;
-        border: 1px solid var(--quaternary-color);
+        border: 1px solid var(--border-color);
         &:focus {
-          border: 1px solid var(--secondary-color);
+          border: 1px solid var(--primary-color);
       }
       }
       button {
-        background-color: var(--secondary-color);
+        background-color: var(--primary-color);
         padding: .5rem 2rem;
         border: none;
         border-radius: 8px;
-        color: var(--tertiary-color);
+        color: var(--text-color);
         font-size: 1.3rem;
         align-self: center;
         &:hover {
-          background-color: var(--secondary-color-hover);
+          background-color: var(--primary-color);
         }
       }
     }
@@ -263,12 +263,12 @@ button[disabled] {
         display: none;
       }
       input {
-          border: 1px solid var(--quaternary-color);
+          border: 1px solid var(--border-color);
           border-radius: 6px;
           padding-left: .5rem;
           &:focus {
           outline: none;
-          border: 1px solid var(--secondary-color);
+          border: 1px solid var(--primary-color);
       }
         }
 

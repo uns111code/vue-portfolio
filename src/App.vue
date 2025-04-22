@@ -3,23 +3,30 @@ import Header from "./components/AppHeader.vue";
 import Aside from "./components/AppAside.vue";
 import Footer from "./components/AppFooter.vue";
 
-// import { onMounted, onUnmounted } from "vue";
-// import { initTrails, destroyTrails } from "@/assets/js/cursor";
+import { onMounted, onUnmounted } from "vue";
+import { initTrails, destroyTrails } from "@/assets/js/cursor";
 
-// onMounted(() => {
-//   initTrails();
-// });
+onMounted(() => {
+  initTrails();
+});
 
-// onUnmounted(() => {
-//   destroyTrails();
-// });
+onUnmounted(() => {
+  destroyTrails();
+});
 </script>
 
 <template>
   <Header />
   <Aside />
   <main>
-    <router-view></router-view>
+    <!-- <transition name="menu-fade">
+      <router-view></router-view>
+    </transition> -->
+    <router-view v-slot="{ Component }">
+      <transition>
+          <component :is="Component" />
+      </transition>
+    </router-view>
   </main>
   <Footer />
   <div id="trails-container"></div>  
@@ -92,7 +99,7 @@ main {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--secondary-color);
+  background: var(--primary-color);
   box-shadow: var(--box-shadow-btn);
   animation: fadeOut .5s linear forwards;
   pointer-events: none; /* Empêche d’interférer avec les éléments */
@@ -107,6 +114,28 @@ main {
       opacity: 0;
       transform: scale(10);
   }
+}
+
+
+
+
+/* -----------------transittion vue --------------------*/
+
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+  transition: opacity 1.3s ease, transform 1.3s ease;
+}
+
+.menu-fade-enter-from,
+.menu-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.menu-fade-enter-to,
+.menu-fade-leave-from {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 </style>

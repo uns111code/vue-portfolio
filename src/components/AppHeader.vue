@@ -28,7 +28,7 @@ watch(
   () => route.path,
   () => {
     navPosition();
-  }
+  },
 );
 
 // Appeler une fois au démarrage
@@ -85,7 +85,7 @@ function getIconClass(name) {
           <RouterLink :to="li.path">
             <i class="nav-icon" :class="[getIconClass(li.name), li.name]"  :style="{ display: route.name !== li.name ? 'block' : 'none' }"></i
             >
-              <span class="nav-label" :class="li.name" :style="{ display: route.name === li.name ? 'block' : 'none' }">{{ li.name.toUpperCase() }}</span>
+            <span class="nav-label" :class="li.name" :style="{ display: route.name === li.name ? 'block' : 'none' }">{{ li.name.toUpperCase() }}</span>
               
           </RouterLink>
       </li>
@@ -136,11 +136,11 @@ nav {
     align-items: center;
     padding: 1rem 2rem 1rem 0.5rem;
     position: relative;
-    // border: 1px solid var(--quaternary-color);
+    // border: 1px solid var(--border-color);
     // border-bottom-right-radius: 8px;
     // border-bottom-left-radius: 8px;
     // &:hover {
-    //   border: 1px solid var(--secondary-color);
+    //   border: 1px solid var(--primary-color);
     // }
 }
 
@@ -153,7 +153,9 @@ nav {
     width: 100%;
     text-align: center;
     z-index: 10;
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+
     li,
     li a {
         padding: 1rem 0;
@@ -225,7 +227,7 @@ nav {
 @media (min-width: 1024px) {
 
   header {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
   }
 
   nav {
@@ -269,7 +271,7 @@ header .hori-selector{
     
     transition-duration:0.6s;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background-color: var(--tertiary-color);
+    background-color: var(--bg-color);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     z-index: -10;
@@ -279,7 +281,7 @@ header .hori-selector{
     position: absolute;
     width: 25px;
     height: 25px;
-    background-color: var(--tertiary-color);
+    background-color: var(--bg-color);
     bottom: 0px;
   }
   .hori-selector .right{
@@ -295,7 +297,7 @@ header .hori-selector{
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: var(--secondary-color);
+      background-color: var(--primary-color);
   }
   .hori-selector .right:before{
     bottom: 0;

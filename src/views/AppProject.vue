@@ -1,77 +1,46 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
 
-const tabeauObj = [
-  {
-    id: "1",
-  },
-  {
-    id: "2",
-  },
-  {
-    id: "3",
-  },
-  {
-    id: "4",
-  },
-  {
-    id: "5",
-  },
-  {
-    id: "6",
-  },
-  {
-    id: "7",
-  },
-  {
-    id: "8",
-  },
-  {
-    id: "9",
-  },
-  {
-    id: "10",
-  },
-];
+// Récupère tous les fichiers d'un dossier
+const modules = import.meta.glob('@/assets/img/projects/desktop/*');
+
+// Transforme ça en une liste d'objets (path + nameWithoutExtension)
+const filteredImages = Object.keys(modules).map(path => {
+  const parts = path.split('/');
+  const fileName = parts[parts.length - 1]; // récupère le nom du fichier avec l'extension
+  
+  // Extraire le nom sans l'extension
+  const nameWithoutExtension = fileName.split('.')[0];
+
+  return {
+    path,
+    nameWithoutExtension: nameWithoutExtension.toLowerCase() // on garde juste le nom sans l'extension
+  };
+});
 
 /***************************************************************************search************************************** */
 
 const searchTerm = ref(""); // on stock la valeur de l'input de search
 
-//  Liste filtrée dynamiquement
+// Liste filtrée dynamiquement
 const filteredItems = computed(() => {
   const term = searchTerm.value.toLowerCase();
-  return tabeauObj.filter(item =>
-    item.id.toString().includes(term)
+  return filteredImages.filter(item =>
+    item.nameWithoutExtension.includes(term) // Recherche uniquement par le nom sans l'extension
   );
 });
-
-
-const items = computed(() => {
-  // Si le champ de recherche est vide, dupliquer les éléments
-  // if (searchTerm.value === "") {
-  //   return [...filteredItems.value, ...filteredItems.value];
-  // }
-  // Sinon, juste retourner les éléments filtrés
-  return filteredItems.value;
-});
-
 
 /************************************************btn-scroll **********************************************/
 
 const scrollContainer = ref(null);
 
-
-
-
 const scrollRight = () => {
   scrollContainer.value.scrollLeft += 300;
 }
+
 const scrollLeft = () => {
   scrollContainer.value.scrollLeft -= 300;
 }
-
-
 
 /***************************************************scroll-x *************************************************/
 
@@ -85,9 +54,6 @@ const handleScroll = (event) => {
   }
 }
 
-
-
-
 /***************************************** grabbing scroll  ******************************************/
 
 let isDragging = false;
@@ -99,7 +65,6 @@ const handleDragStart = (e) => {
   startX = e.pageX;
   scrollStartLeft = scrollContainer.value.scrollLeft;
   scrollContainer.value.style.cursor = 'grabbing';
-
 };
 
 const handleDragging = (e) => {
@@ -115,17 +80,8 @@ const stopDragging = () => {
   }
 };
 
-
-
-
-
-
-
-
 onMounted(() => {
   window.addEventListener('wheel', handleScroll)
-  // scrollContainer.value?.removeEventListener('wheel', handleScroll)
-
 
   // grabbing
   const container = scrollContainer.value;
@@ -141,53 +97,56 @@ onUnmounted(() => {
   window.removeEventListener('wheel', handleScroll)
 
   const container = scrollContainer.value;
-  container.removeEventListener('mousedown', handleDragStart);
-  container.removeEventListener('mousemove', handleDragging);
-  container.removeEventListener('mouseup', stopDragging);
-  container.removeEventListener('mouseleave', stopDragging);
+  if (container) {
+    container.removeEventListener('mousedown', handleDragStart);
+    container.removeEventListener('mousemove', handleDragging);
+    container.removeEventListener('mouseup', stopDragging);
+    container.removeEventListener('mouseleave', stopDragging);
+  }
 })
 </script>
 
 <template>
   <section id="portfolio" class="portfolio">
     <section class="search">
-    <input
-      type="text"
-      class="srch-input"
-      v-model="searchTerm"
-      placeholder=" Search"
-    />
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-        d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" stroke-width="1"/>
-    </svg>
-  </section>
+      <input
+        type="text"
+        class="srch-input"
+        v-model="searchTerm"
+        placeholder="Search"
+      />
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" stroke-width="1"/>
+      </svg>
+    </section>
     <h2>Portfolio</h2>
-    <p>
-      Ci-dessous, quelques exemples de réalisations effectuées durant la
-      formation :
-    </p>
+    <p>Ci-dessous, quelques exemples de réalisations effectuées durant la formation :</p>
     <div class="swiper">
       <i 
         @click="scrollLeft"
         class="fa-solid fa-chevron-left"
-        ></i>
-      <div class="items"  ref="scrollContainer">
+      ></i>
+      <div class="items" ref="scrollContainer" :style="{ justifyContent: searchTerm !== '' ? 'center' : 'flex-start' }">
         <div 
-          class="item" 
-          v-for="item in items"
-          :key="item.id"
-          >
-          id {{ item.id }}
+          class="item-container"
+          v-for="(img, index) in filteredItems"
+          :key="index"
+        >
+          <div class="item">
+            <img :src="img.path" alt="image" draggable="false" />
+          </div>
+          <a :href="`https://github.com/uns111code/${img.nameWithoutExtension}`">Détails</a>
         </div>
       </div>
       <i 
         @click="scrollRight"
         class="fa-solid fa-chevron-right"
-        ></i>
+      ></i>
     </div>
   </section>
 </template>
+
 
 <style lang="scss" scoped>
 .portfolio {
@@ -200,30 +159,29 @@ onUnmounted(() => {
   .search {
   padding: 0 1rem;
   svg {
-    color: black;
+    color: var(--primary-color);
     transform: translate(-130%, 25%);
   }
   .srch-input {
     padding: .5rem 1rem;
     border-radius: 50px;
-    border: 1px solid var(--quaternary-color);
+    border: 1px solid var(--border-color);
     font-size: 1rem;
     &:focus {
         outline: none;
-        border: 1px solid var(--secondary-color);
+        border: 1px solid var(--primary-color);
       }
   }
 }
 
 
   .swiper {
-  background-color: aquamarine;
   width: 100vw;
-  height: 40vh;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 1rem;
 
   i {
     font-size: 2rem;
@@ -235,11 +193,8 @@ onUnmounted(() => {
 
   .items {
     display: flex;
-    align-items: center;
-    background-color: bisque;
-    height: 80%;
     gap: 1rem;
-    width: 1000px;
+    width: clamp(350px, 60vw, 80vw);
     position: relative;
     cursor: grab;
     overflow: scroll;
@@ -252,16 +207,45 @@ onUnmounted(() => {
       display: none;
     }
 
-    mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
+    // mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
+    // -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
 
 
 
-
-    .item {
-      background-color: burlywood;
-      padding: 100px;
+    .item-container {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 2rem;
+      .item {
+      width: 15rem;
+      height: 15rem;
+      flex: 0 0 auto; // important pour le scroll horizontal
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      img {
+        object-fit: contain;
+        flex: 1;
+      }
     }
+
+    a {
+      background-color: var(--primary-color);
+      padding: .5rem 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--primary-color);
+      transition: var(--transition);
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    }
+    
   }
 }
 }
