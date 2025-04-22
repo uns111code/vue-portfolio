@@ -2,7 +2,8 @@
 import { ref, onMounted } from "vue";
 
 const setting = ref(false);
-const themes = ref("no");
+const themes = ref("primary");
+const modes = ref(false)
 
 const openSetting = () => {
   setting.value = !setting.value;
@@ -15,8 +16,29 @@ document.querySelectorAll("main, footer, header").forEach((el) => {
 });
 
 /* ************************** changement de theme ************************** */
-const items = [1, 2, 3, 4, 5];
-const colors = ["#363B48", "#939597", "#7C4C53", "#80856D", "white"];
+const colors = [
+  "#121212", // dark base
+  "#1E1E1E", // dark gray
+  "#0D1117", // github dark
+  "#333333", // soft dark
+  "#C9D1D9", // github gray
+  "#8B949E", // secondary text
+  "#F5F5F5", // light gray
+  "#F2F2F2", // light bg
+  "#EDEDED", // light neutral
+  "#FFFFFF", // white
+  "#58A6FF", // accent blue
+  "#7FDBFF", // light blue
+  "#4CAF50", // green
+  "#00BFA6", // teal
+  "#88B04B", // soft green
+  "#FFB400", // accent yellow
+  "#A29BFE", // lavender
+  "#6B5B95", // deep purple
+  "#FF6363", // soft red
+  "#FF6F61", // coral
+  "#111111"  // near-black
+];
 
 function changePrimaryColor(index) {
   const root = document.querySelector(":root");
@@ -32,16 +54,45 @@ function changeTextColor(index) {
   localStorage.setItem("textColor", selectedColorText);
 }
 
+function changeBgColor(index) {
+  const root = document.querySelector(":root");
+  const selectedColorBg = colors[index];
+  root.style.setProperty("--bg-color", selectedColorBg);
+  localStorage.setItem("bgColor", selectedColorBg);
+}
+
+
+function handleColorChange(index) {
+  if (themes.value === 'primary') {
+    changePrimaryColor(index)
+  } else if (themes.value === 'text') {
+    changeTextColor(index)
+  } else if (themes.value === 'bg') {
+    changeBgColor(index)
+  }
+}
+
+
+
+
+
+
+
+
 onMounted(() => {
   const root = document.querySelector(":root");
   const savedColor = localStorage.getItem("primaryColor");
   const savedColorText = localStorage.getItem("textColor");
+  const savedColorBg = localStorage.getItem("bgColor");
 
   if (savedColor) {
     root.style.setProperty("--primary-color", savedColor);
   }
   if (savedColorText) {
     root.style.setProperty("--text-color", savedColorText);
+  }
+  if (savedColorBg) {
+    root.style.setProperty("--bg-color", savedColorBg);
   }
 });
 </script>
@@ -50,30 +101,25 @@ onMounted(() => {
   <aside>
     <section
       class="setting"
-      :style="{ '--left-value': setting ? '0' : '-80px' }"
+      :style="{ '--left-value': setting ? '0' : '-95px' }"
     >
-      <div class="article-feedback-wrapper">
-        <input class="input" id="yes" value="yes" name="article" type="radio" v-model="themes"/>
-        <label class="article-feedback" for="yes">Text</label>
-        <input class="input" id="no" value="no" name="article" type="radio" v-model="themes"/>
-        <label class="article-feedback" for="no">Bg</label>
-      </div>
-      <ul v-if="themes === 'no'" class="setting-list">
+      <select name="themes" id="themes" v-model="themes">
+        <option value="text">Text</option>
+        <option value="primary">Primary</option>
+        <option value="bg">Bg</option>
+      </select>
+      <ul class="setting-list">
         <li
-          v-for="(item, index) in items"
-          :key="'text-' + index"
-          @click="changeTextColor(index)"
-          :style="{ backgroundColor: colors[index] }"
+          v-for="(color, index) in colors"
+          :key="color + index"
+          @click="handleColorChange(index)"
+          :style="{ backgroundColor: color }"
         ></li>
       </ul>
-      <ul v-if="themes === 'yes'" class="setting-list">
-        <li
-          v-for="(item, index) in items"
-          :key="'bg-' + index"
-          @click="changePrimaryColor(index)"
-          :style="{ backgroundColor: colors[index] }"
-        ></li>
-      </ul>
+      <!-- <div class="modes">
+        <input id="s2" type="checkbox" class="switch" checked>
+        <label for="s2">Switch</label>
+      </div> -->
       <div @click="openSetting" class="btn-setting">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +178,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .setting {
-  background-color: var(--bg-color);
+  background-color: white;
   position: fixed;
   top: 50%;
   left: var(--left-value);
@@ -143,6 +189,8 @@ onMounted(() => {
   transition: left 0.5s ease;
   z-index: 999;
   cursor: pointer;
+  height: 200px;
+  padding: .5rem;
   // display: flex;
   // flex-direction: column;
   // flex-wrap: wrap;
@@ -155,7 +203,7 @@ onMounted(() => {
 
   .btn-setting {
     box-shadow: var(--box-shadow);
-    background-color: var(--bg-color);
+    background-color: white;
     position: absolute;
     top: 50%;
     left: 100%;
@@ -182,14 +230,51 @@ onMounted(() => {
 }
 
 .setting-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: .5rem;
   li {
-    border: 1px solid var(--border-color);
-    padding: 5px;
+    border: 1px solid var(--bg-color);
+    padding: 10px;
+    max-width: 5px;
   }
+}
+
+select{
+  appearance: none;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #888;
+    background-color: #f0f0f0;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  }
+}
+
+option {
+  background-color: #fff;
+  color: #333;
 }
 
 
 
+select {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75em center;
+  padding-right: 2em;
+}
 /* *****************************Radio ******************************* */
 
 /* From Uiverse.io by Zain-Muhammad */ 
