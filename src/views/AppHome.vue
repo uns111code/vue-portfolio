@@ -1,28 +1,44 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
-    <section id="profil" class="profil">
-        <div class="accueil">
-          <h1>Younes Amini</h1>
-          <h4>Développeur Web</h4>
-        </div>
-        <div class="logo-section">
-          <div class="logo">
-            <img src="../assets/img/YA logo.png" alt="">
-          </div>
-        </div>
-      </section>
+  <section id="profil" class="profil">
+    <div class="accueil">
+      <h1>Younes Amini</h1>
+      <h4>Développeur Web</h4>
+    </div>
+    <div class="logo-section">
+      <div class="logo">
+        <img src="../assets/img/YA logo.png" alt="" />
+      </div>
+    </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
+.test {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+}
+.test2 {
+  position: absolute;
+  top: 62%;
+  left: 30%;
+}
+
+
+
+
+
+
+
 .profil {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
 }
 
 .profil .logo-section {
@@ -36,7 +52,7 @@
   border-radius: 50%;
 }
 
-.logo{
+.logo {
   img {
     transition: var(--transition);
     filter: hue-rotate(250deg); /* 90deg ≈ vert */
@@ -46,38 +62,37 @@
   }
 }
 
-
 .logo-section:hover .logo img {
   filter: hue-rotate(0deg);
   transform: rotateY(360deg);
 }
 
+.profil .logo-section::after,
+.profil .logo-section::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(
+    from 0deg,
+    transparent 30%,
+    var(--primary-color)
+  );
+  top: -6px;
+  left: -5px;
+  z-index: -10;
+  box-sizing: unset;
+  padding: 5px;
+  border-radius: 50%;
+  animation: 3s spin linear infinite;
+}
 
- 
- .profil .logo-section::after, .profil .logo-section::before {
-   content: '';
-   position: absolute;
-   height: 100%;
-   width: 100%;
-   background-image: conic-gradient(from 0deg ,transparent 30%, var(--primary-color));
-   top: -6px;
-   left: -5px;
-   z-index: -10;
-   box-sizing: unset;
-   padding: 5px;
-   border-radius: 50%;
-   animation: 3s spin linear infinite;
- }
- 
- .profil .logo-section::before {
-   filter: blur(1.5rem);
-   opacity: 1;
-   z-index: -9;
- }
+.profil .logo-section::before {
+  filter: blur(1.5rem);
+  opacity: 1;
+  z-index: -9;
+}
 
-
-
- 
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -86,12 +101,6 @@
     transform: rotate(360deg);
   }
 }
-
-
-
-
-
-
 
 .profil .accueil h1 {
   font-size: 40px;
@@ -105,10 +114,6 @@ h2 {
   padding-bottom: 2rem;
 }
 
-
-
-
-
 /* --- Responsive --- */
 @media (min-width: 1024px) {
   .profil {
@@ -116,7 +121,5 @@ h2 {
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-    
 }
-
 </style>

@@ -31,6 +31,9 @@ body {
     --nav-position: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
+    font-family: "Red Hat Text", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 #app {

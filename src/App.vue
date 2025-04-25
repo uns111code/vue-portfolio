@@ -99,6 +99,7 @@ main {
   width: clamp(180px, 15vw, 467px); /* adaptatif : min 200px, idéal 30vw, max 467px */
   z-index: -1;
   pointer-events: none; /* optionnel : ne bloque pas les clics */
+  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
 }
 
 .bg-svg-bottom {
@@ -106,9 +107,12 @@ main {
   bottom: 0;
   right: 0;
   z-index: -999;
-  // path {
-  //   fill: var(--header-color);
-  // }
+  background: linear-gradient();
+  path {
+    // fill: var(--header-color); 
+    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
+  }
+ 
 }
 
 /* --- Responsive --- */
@@ -121,26 +125,28 @@ main {
 <style lang="scss">
 .trace {
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 4rem;
+  height: 4rem;
   z-index: 100;
   border-radius: 50%;
-  background: var(--primary-color);
-  box-shadow: var(--box-shadow-btn);
-  animation: fadeOut 0.5s linear forwards;
+  // background: var(--primary-color);
+  // box-shadow: var(--box-shadow-btn);
+  border: 1px solid var(--primary-color);
+  // animation: fadeOut 0.5s linear forwards;
   pointer-events: none; /* Empêche d’interférer avec les éléments */
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(10);
-  }
-}
+
+// @keyframes fadeOut {
+//   from {
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+//   to {
+//     opacity: 0;
+//     transform: scale(10);
+//   }
+// }
 
 /* -----------------transittion vue --------------------*/
 

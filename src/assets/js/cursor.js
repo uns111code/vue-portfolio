@@ -1,21 +1,37 @@
 let update;
 
 export function initTrails() {
+  const trace = document.createElement("div");
+  trace.classList.add("trace");
+
   update = function (event) {
-    const trace = document.createElement("div");
-    trace.classList.add("trace");
+
+    
 
     const x = event.pageX || event.touches?.[0]?.pageX;
     const y = event.pageY || event.touches?.[0]?.pageY;
 
-    trace.style.left = `${x}px`;
-    trace.style.top = `${y}px`;
+  // Pour centrer le div.trace par rapport à la position de la souris
+  const traceSize = 64; // La taille de trace (on prend ici 20px pour l'exemple)
+
+  // On ajuste la position du trace pour le centrer
+  trace.style.left = `${x - traceSize / 2}px`;
+  trace.style.top = `${y - traceSize / 2}px`;
 
     document.body.appendChild(trace);
 
-    setTimeout(() => {
-      trace.remove();
-    }, 500);
+
+    
+    window.addEventListener('click', () => {
+      trace.style.background = 'var(--primary-color)';
+            // Supprimer traceOnClick après 500ms
+            setTimeout(() => {
+              trace.style.background = 'none';
+            }, 100);
+    });
+  
+
+    
   };
 
   document.addEventListener("mousemove", update);

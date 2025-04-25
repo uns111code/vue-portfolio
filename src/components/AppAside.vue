@@ -80,11 +80,13 @@ watch(modes, (value) => {
     root.style.setProperty("--primary-color", "#f66c00");
   } else {
     // Mode clair
-    root.style.setProperty("--bg-color", "#252525");
-    root.style.setProperty("--text-color", "#F5F5F5");
-    root.style.setProperty("--header-color", "#121212");
-    root.style.setProperty("--primary-color", "#f66c00");
-  }
+    root.style.setProperty("--bg-color", localStorage.getItem("bgColor"));
+    root.style.setProperty("--text-color", localStorage.getItem("textColor"));
+    root.style.setProperty("--header-color", localStorage.getItem("headerColor"));
+    root.style.setProperty("--primary-color", localStorage.getItem("primaryColor"));
+    // handleColorChange(0) 
+  };
+  localStorage.setItem('modes', value)
 });
 
 
@@ -94,7 +96,7 @@ watch(modes, (value) => {
 
 function handleColorChange(index) {
   if (themes.value === "primary") {
-    changePrimaryColor(index);
+    changePrimaryColor(index);    
   } else if (themes.value === "text") {
     changeTextColor(index);
   } else if (themes.value === "bg") {
@@ -110,6 +112,12 @@ onMounted(() => {
   const savedColorText = localStorage.getItem("textColor");
   const savedColorBg = localStorage.getItem("bgColor");
   const savedColorHeader = localStorage.getItem("headerColor");
+  const selectedMode = localStorage.getItem('modes')
+  if (selectedMode === 'true') {
+  modes.value = true
+} else {
+  modes.value = false
+}
 
   if (savedColor) {
     root.style.setProperty("--primary-color", savedColor);
@@ -125,7 +133,6 @@ onMounted(() => {
   }
 });
 
-console.log(modes.value);
 
 </script>
 
@@ -435,7 +442,7 @@ select {
   height: 2rem;
   width: 2rem;
   color: var(--text-color);
-  background-color: var(--primary-color);
+  background-color: var(--header-color);
   border: none;
 }
 
