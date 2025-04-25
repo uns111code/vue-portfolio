@@ -1,9 +1,9 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 const setting = ref(false);
 const themes = ref("primary");
-const modes = ref(false)
+const modes = ref(false);
 
 const openSetting = () => {
   setting.value = !setting.value;
@@ -17,27 +17,28 @@ document.querySelectorAll("main, footer, header").forEach((el) => {
 
 /* ************************** changement de theme ************************** */
 const colors = [
-  "#121212", // dark base
-  "#1E1E1E", // dark gray
-  "#0D1117", // github dark
-  "#333333", // soft dark
-  "#C9D1D9", // github gray
-  "#8B949E", // secondary text
-  "#F5F5F5", // light gray
-  "#F2F2F2", // light bg
-  "#EDEDED", // light neutral
-  "#FFFFFF", // white
-  "#58A6FF", // accent blue
-  "#7FDBFF", // light blue
-  "#4CAF50", // green
-  "#00BFA6", // teal
-  "#88B04B", // soft green
-  "#FFB400", // accent yellow
-  "#A29BFE", // lavender
-  "#6B5B95", // deep purple
-  "#FF6363", // soft red
-  "#FF6F61", // coral
-  "#111111"  // near-black
+  "rgb(255, 111, 97)",   // coral
+  "rgb(30, 30, 30)",     // dark gray
+  "rgb(13, 17, 23)",     // github dark
+  "rgb(51, 51, 51)",     // soft dark
+  "rgb(201, 209, 217)",  // github gray
+  "rgb(139, 148, 158)",  // secondary text
+  "rgb(245, 245, 245)",  // light gray
+  "rgb(242, 242, 242)",  // light bg
+  "rgb(237, 237, 237)",  // light neutral
+  "rgb(255, 255, 255)",  // white
+  "rgb(88, 166, 255)",   // accent blue
+  "rgb(127, 219, 255)",  // light blue
+  "rgb(76, 175, 80)",    // green
+  "rgb(0, 191, 166)",    // teal
+  "rgb(136, 176, 75)",   // soft green
+  "rgb(255, 180, 0)",    // accent yellow
+  "rgb(162, 155, 254)",  // lavender
+  "rgb(107, 91, 149)",   // deep purple
+  // ******************** dark mode ********************************* //
+  "rgb(37, 37, 37)",     // dark gray
+  "rgb(18, 18, 18)",     // orange
+  "rgb(246, 108, 0)",    // near-black
 ];
 
 function changePrimaryColor(index) {
@@ -61,29 +62,54 @@ function changeBgColor(index) {
   localStorage.setItem("bgColor", selectedColorBg);
 }
 
-
-function handleColorChange(index) {
-  if (themes.value === 'primary') {
-    changePrimaryColor(index)
-  } else if (themes.value === 'text') {
-    changeTextColor(index)
-  } else if (themes.value === 'bg') {
-    changeBgColor(index)
-  }
+function changeHeaderColor(index) {
+  const root = document.querySelector(":root");
+  const selectedColorHeader = colors[index];
+  root.style.setProperty("--header-color", selectedColorHeader);
+  localStorage.setItem("headerColor", selectedColorHeader);
 }
 
+watch(modes, (value) => {
+  const root = document.querySelector(":root");
+
+  if (value) {
+    // Mode sombre
+    root.style.setProperty("--bg-color", "#252525");
+    root.style.setProperty("--text-color", "#F5F5F5");
+    root.style.setProperty("--header-color", "#121212");
+    root.style.setProperty("--primary-color", "#f66c00");
+  } else {
+    // Mode clair
+    root.style.setProperty("--bg-color", "#252525");
+    root.style.setProperty("--text-color", "#F5F5F5");
+    root.style.setProperty("--header-color", "#121212");
+    root.style.setProperty("--primary-color", "#f66c00");
+  }
+});
 
 
 
 
 
 
+function handleColorChange(index) {
+  if (themes.value === "primary") {
+    changePrimaryColor(index);
+  } else if (themes.value === "text") {
+    changeTextColor(index);
+  } else if (themes.value === "bg") {
+    changeBgColor(index);
+  } else if (themes.value === "header") {
+    changeHeaderColor(index);
+  }
+}
 
 onMounted(() => {
   const root = document.querySelector(":root");
   const savedColor = localStorage.getItem("primaryColor");
   const savedColorText = localStorage.getItem("textColor");
   const savedColorBg = localStorage.getItem("bgColor");
+  const savedColorHeader = localStorage.getItem("headerColor");
 
   if (savedColor) {
     root.style.setProperty("--primary-color", savedColor);
@@ -94,19 +120,26 @@ onMounted(() => {
   if (savedColorBg) {
     root.style.setProperty("--bg-color", savedColorBg);
   }
+  if (savedColorHeader) {
+    root.style.setProperty("--header-color", savedColorHeader);
+  }
 });
+
+console.log(modes.value);
+
 </script>
 
 <template>
   <aside>
     <section
       class="setting"
-      :style="{ '--left-value': setting ? '0' : '-95px' }"
+      :style="{ '--right-value': setting ? '0' : '-105px' }"
     >
       <select name="themes" id="themes" v-model="themes">
         <option value="text">Text</option>
         <option value="primary">Primary</option>
         <option value="bg">Bg</option>
+        <option value="header">header</option>
       </select>
       <ul class="setting-list">
         <li
@@ -116,10 +149,40 @@ onMounted(() => {
           :style="{ backgroundColor: color }"
         ></li>
       </ul>
-      <!-- <div class="modes">
-        <input id="s2" type="checkbox" class="switch" checked>
-        <label for="s2">Switch</label>
-      </div> -->
+      <!-- From Uiverse.io by MRez321 -->
+      <div class="theme-switch">
+        <input type="checkbox" id="theme-checkbox" v-model="modes"/>
+        <label for="theme-checkbox">
+          <div></div>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </span>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+              ></path>
+            </svg>
+          </span>
+        </label>
+      </div>
+
       <div @click="openSetting" class="btn-setting">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -178,38 +241,29 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .setting {
-  background-color: white;
+  background-color: var(--bg-color);
   position: fixed;
   top: 50%;
-  left: var(--left-value);
+  right: var(--right-value);
   transform: translateY(-50%);
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
   box-shadow: var(--box-shadow);
-  transition: left 0.5s ease;
+  transition: right 0.5s ease;
   z-index: 999;
   cursor: pointer;
-  height: 200px;
-  padding: .5rem;
-  // display: flex;
-  // flex-direction: column;
-  // flex-wrap: wrap;
-  color: var(--text-color);
-  // ul {
-  //   li {
-  //     padding: 1rem;
-  //   }
-  // }
+  padding: 1rem 0.5rem;
+
 
   .btn-setting {
     box-shadow: var(--box-shadow);
-    background-color: white;
+    background-color: var(--bg-color);
     position: absolute;
     top: 50%;
-    left: 100%;
+    right: 100%;
     transform: translateY(-50%);
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     padding: 0.5rem 0.3rem 0.2rem 0.3rem;
     svg {
       animation: setting 5s linear infinite;
@@ -232,7 +286,7 @@ onMounted(() => {
 .setting-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: .5rem;
+  padding: 1rem 0.5rem;
   li {
     border: 1px solid var(--bg-color);
     padding: 10px;
@@ -240,7 +294,7 @@ onMounted(() => {
   }
 }
 
-select{
+select {
   appearance: none;
   background-color: #f9f9f9;
   border: 1px solid #ccc;
@@ -267,8 +321,6 @@ option {
   color: #333;
 }
 
-
-
 select {
   background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -277,61 +329,77 @@ select {
 }
 /* *****************************Radio ******************************* */
 
-/* From Uiverse.io by Zain-Muhammad */ 
-.article-feedback-container {
-  // --primary-color: #000000;
-  // --secondary-color: #000000;
-  // --tab-text-color: #ffffff;
-  // --heading-color: #000000;
-  // --hover: #494b4f;
+.theme-switch {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 16px;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
+  justify-content: center;
+  direction: rtl;
 }
-.article-feedback-heading {
-  font-weight: 600;
-  color: var(--heading-color);
-}
-.article-feedback-wrapper {
-  display: flex;
-  align-items: center;
-}
-.article-feedback-wrapper .input {
+
+#theme-checkbox {
   display: none;
 }
-.article-feedback {
-  flex-grow: 1;
-  text-align: center;
-  padding: 8px 24px;
-  font-size: 14px;
-  background: var(--tab-text-color);
-  border: 1px solid var(--primary-color);
-  color: var(--secondary-color);
-  font-weight: 500;
+
+#theme-checkbox + label {
+  /* change the font-size below to change the size of the switch button*/
+  font-size: 2rem;
+  height: 1em;
+  width: 2.5em;
+  border-radius: 0.25em;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  background-color: #cecece;
+  position: relative;
 }
-.article-feedback-wrapper > .article-feedback:nth-child(2) {
-  border-radius: 4px 0px 0px 4px;
+
+#theme-checkbox:checked + label {
+  background-color: #3a3a3a;
 }
-.article-feedback-wrapper > .article-feedback:nth-child(4) {
-  border-radius: 0px 4px 4px 0px;
+
+#theme-checkbox + label:active {
+  transform: scale(0.85);
+  transition: transform 0.2s;
 }
-.article-feedback:hover {
-  background: var(--hover);
-  color: var(--tab-text-color);
-  border-color: var(--hover);
+
+#theme-checkbox + label div {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: inherit;
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  z-index: 10;
+  transition: 0.5s cubic-bezier(1, 0.33, 0.11, 1.34);
+  background-color: #f2f2f2;
 }
-.article-feedback:active {
-  transform: scale(0.9);
+
+#theme-checkbox:checked + label div {
+  /* left: calc(2.5em - .8em - .1em); */
+  left: 1.6em;
+  background-color: #212121;
 }
-.input:checked + label.article-feedback {
-  background: var(--primary-color);
-  color: var(--tab-text-color);
+
+#theme-checkbox + label span {
+  display: flex;
 }
+
+#theme-checkbox + label svg {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  padding: 0.15em;
+  box-sizing: border-box;
+}
+
+#theme-checkbox + label span:first-of-type {
+  color: #3a3a3a;
+}
+
+#theme-checkbox + label span:last-of-type {
+  color: #cecece;
+}
+
 
 
 /* ************************** socials ************************** */
@@ -366,7 +434,7 @@ select {
   font-size: 1rem;
   height: 2rem;
   width: 2rem;
-  color: var(#ffffff);
+  color: var(--text-color);
   background-color: var(--primary-color);
   border: none;
 }
@@ -451,16 +519,4 @@ select {
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
 }
-
-
-
-
-
-
-
-
-
-
-
-
 </style>

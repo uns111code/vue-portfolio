@@ -18,106 +18,129 @@ onUnmounted(() => {
 <template>
   <Header />
   <Aside />
+
   <main>
-    <!-- <transition name="menu-fade">
-      <router-view></router-view>
-    </transition> -->
+    <svg
+    class="bg-svg-top"
+    width="467"
+    height="1035"
+    viewBox="0 0 467 1035"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+  >
+    <path
+      d="M0 0.0565866L466.5 0.0565867C466.5 0.0565867 414.5 -4.94341 370.5 79.0566C326.5 163.057 306.5 302.057 207.5 357.557C108.5 413.057 89.5 493.057 45 708.557C0.5 924.057 16.5 987.057 11 1006.56C5.5 1026.06 0 1034.06 0 1034.06V0.0565866Z"
+      fill="url(#paint0_linear_19_12)"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_19_12"
+        x1="71.5"
+        y1="9.39302e-07"
+        x2="233.25"
+        y2="1034.06"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="var(--header-color)" />
+        <stop offset="0.660527" stop-color="var(--header-color)" />
+        <stop offset="1" stop-color="var(--primary-color)" />
+      </linearGradient>
+    </defs>
+  </svg>
     <router-view v-slot="{ Component }">
       <transition>
-          <component :is="Component" />
+        <component :is="Component" />
       </transition>
     </router-view>
   </main>
   <Footer />
-  <div id="trails-container"></div>  
-</template>
 
+  <svg
+    class="bg-svg-bottom"
+    width="476"
+    height="363"
+    viewBox="0 0 476 363"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M475.716 167.756L475.716 0L359.716 185.756C359.716 185.756 345.216 213.256 314.216 279.256C283.216 345.256 253.216 369.756 253.216 369.756L0.216287 369.756C0.216287 369.756 129.716 257.756 253.216 248.256C376.716 238.756 310.716 234.756 372.216 220.756C433.716 206.756 475.716 167.756 475.716 167.756Z"
+      fill="url(#paint0_linear_19_16)"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_19_16"
+        x1="269.188"
+        y1="-43.5963"
+        x2="263.812"
+        y2="465.596"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0.0348554" stop-color="var(--header-color)" />
+        <stop offset="0.532145" stop-color="var(--header-color)" />
+        <stop offset="0.870494" stop-color="var(--primary-color)" />
+      </linearGradient>
+    </defs>
+  </svg>
+</template>
 
 <style lang="scss" scoped>
 main {
   flex: 1; /* pousse le footer vers le bas */
+  position: relative;
 }
 
+.bg-svg-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%; /* prend toute la hauteur du parent */
+  width: clamp(180px, 15vw, 467px); /* adaptatif : min 200px, idéal 30vw, max 467px */
+  z-index: -1;
+  pointer-events: none; /* optionnel : ne bloque pas les clics */
+}
 
+.bg-svg-bottom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -999;
+  // path {
+  //   fill: var(--header-color);
+  // }
+}
 
 /* --- Responsive --- */
 @media (min-width: 1024px) {
-
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-    
 }
-
-
-
-
-
-
-
-
-// /* Conteneur dédié aux traînées */
-// #trails-container {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100vw;
-//   height: 100vh;
-//   pointer-events: none; /* Empêche de bloquer les interactions */
-// }
-
-
-
-// .trace {
-//   position: absolute;
-//   width: 6px;
-//   height: 6px;
-//   border-radius: 50%;
-//   background: red;
-//   box-shadow: var(--box-shadow-btn);
-//   animation: fadeOut .5s linear forwards;
-//   pointer-events: none; /* Empêche d’interférer avec les éléments */
-// }
-
-// @keyframes fadeOut {
-//   from {
-//       opacity: 1;
-//       transform: scale(1);
-//   }
-//   to {
-//       opacity: 0;
-//       transform: scale(10);
-//   }
-// }
-
 </style>
 
 <style lang="scss">
-
-
 .trace {
   position: absolute;
   width: 6px;
   height: 6px;
+  z-index: 100;
   border-radius: 50%;
   background: var(--primary-color);
   box-shadow: var(--box-shadow-btn);
-  animation: fadeOut .5s linear forwards;
+  animation: fadeOut 0.5s linear forwards;
   pointer-events: none; /* Empêche d’interférer avec les éléments */
 }
 
 @keyframes fadeOut {
   from {
-      opacity: 1;
-      transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
   }
   to {
-      opacity: 0;
-      transform: scale(10);
+    opacity: 0;
+    transform: scale(10);
   }
 }
-
-
-
 
 /* -----------------transittion vue --------------------*/
 
@@ -137,5 +160,4 @@ main {
   opacity: 1;
   transform: translateX(0);
 }
-
 </style>

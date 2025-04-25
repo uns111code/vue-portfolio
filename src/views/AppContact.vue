@@ -193,7 +193,7 @@ const submitForm = async () => {
       }
       }
       button {
-        background-color: var(--primary-color);
+        background-color: var(--header-color);
         padding: .5rem 2rem;
         border: none;
         border-radius: 8px;

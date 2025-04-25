@@ -234,13 +234,13 @@ onUnmounted(() => {
     }
 
     a {
-      background-color: var(--primary-color);
+      background-color: var(--header-color);
       padding: .5rem 2rem;
       border-radius: 8px;
-      border: 1px solid var(--primary-color);
-      transition: var(--transition);
+      // border: 1px solid var(--primary-color);
+      transition: all 0.1s ease-in-out;
       &:hover {
-        background-color: transparent;
+        background-color: var(--primary-color);
       }
     }
 

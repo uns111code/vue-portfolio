@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -59,6 +59,14 @@ function getIconClass(name) {
   }
 }
 
+
+onMounted(() => {
+  document.querySelectorAll("main, .item").forEach((el) => {
+    el.addEventListener('click', () => {
+      isOpen.value = false;
+    });
+  });
+});
 </script>
 
 <template>
@@ -83,9 +91,9 @@ function getIconClass(name) {
       </div>
       <li v-for="li in displayedRoutes" :key="li.name" class="item">
           <RouterLink :to="li.path">
-            <i class="nav-icon" :class="[getIconClass(li.name), li.name]"  :style="{ display: route.name !== li.name ? 'block' : 'none' }"></i
+            <i class="nav-icon" :class="[getIconClass(li.name), li.name]"  :style="{ display: route.name !== li.name || isOpen ? 'block' : 'none' }"></i
             >
-            <span class="nav-label" :class="li.name" :style="{ display: route.name === li.name ? 'block' : 'none' }">{{ li.name.toUpperCase() }}</span>
+            <span class="nav-label" :class="li.name" :style="{ display: route.name === li.name || isOpen ? 'block' : 'none' }">{{ li.name.toUpperCase() }}</span>
               
           </RouterLink>
       </li>
@@ -129,6 +137,9 @@ function getIconClass(name) {
   transform: scale(1.3);
 }
 
+header {
+  background-color: var(--header-color);
+}
 
 nav {
     display: flex;
@@ -153,8 +164,15 @@ nav {
     width: 100%;
     text-align: center;
     z-index: 10;
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    background-color: var(--header-color);
+    color: var(--primary-color);
+    .item {
+      a {
+        display: flex;
+        gap: .5rem;
+        padding-left: 3rem;
+      }
+    }
 
     li,
     li a {
@@ -227,7 +245,7 @@ nav {
 @media (min-width: 1024px) {
 
   header {
-    background-color: var(--primary-color);
+    background-color: var(--header-color);
   }
 
   nav {
@@ -253,8 +271,11 @@ nav {
       width: 8rem;
       text-align: center;
     }
-    li a {
+    .item {
+      a {
+        display: inline;
         padding: 1rem;
+      }
     }
 
 }
@@ -297,7 +318,7 @@ header .hori-selector{
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: var(--primary-color);
+      background-color: var(--header-color);
   }
   .hori-selector .right:before{
     bottom: 0;

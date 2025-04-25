@@ -1,12 +1,14 @@
 :root {
   // --nav-position: 0;
-  --primary-color: #48c78e;
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --border-color: #c5c4c4;
+  --primary-color: rgb(72, 199, 142); /* #48c78e */
+  --header-color: rgb(37, 37, 37);    /* #252525 */
+  --bg-color: rgb(255, 255, 255);    /* #ffffff */
+  --text-color: rgb(0, 0, 0);        /* #000000 */
+  --border-color: rgb(197, 196, 196); /* #c5c4c4 */
+  --svg-color: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 100%, rgba(255, 235, 59, 1) 100%);
 
   --border-radius: 1rem;
-  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --box-shadow: 0px 0px 3px 0px var(--header-color);
   --radius-100: 100px;
   --transition: all 0.3s ease-in-out;
 }
