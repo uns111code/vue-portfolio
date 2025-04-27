@@ -14,7 +14,7 @@ const images = Object.keys(modules);
 <template>
   <section id="competences">
     <article>
-      <h2>Compétences</h2>
+      <h2 class="title">Compétences</h2>
       <p>
         Développeur full-stack passionné, je maîtrise les bases solides de HTML,
         CSS, JavaScript ainsi que le framework Vue.js, afin de créer des

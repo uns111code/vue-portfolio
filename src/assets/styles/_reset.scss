@@ -29,8 +29,8 @@ button {
 body {
     overflow-x: hidden;
     --nav-position: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--secondary-color);
+    color: var(--quaternary-color);
     font-family: "Red Hat Text", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -48,6 +48,24 @@ body {
   }
 
 
+  .icon {
+    color: var(--primary-color);
+  }
+
+  .btn {
+    padding: .5rem 1rem;
+    width: fit-content;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+    background-color: var(--senary-color);
+    &:hover {
+        background-color: var(--tertiary-color);
+      }
+  }
+
+  .title {
+    color: var(--quinary-color);
+  }
 
 
 /* --- Responsive --- */

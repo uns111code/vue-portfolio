@@ -120,12 +120,12 @@ onUnmounted(() => {
           d="m21 21l-4.343-4.343m0 0A8 8 0 1 0 5.343 5.343a8 8 0 0 0 11.314 11.314" stroke-width="1"/>
       </svg>
     </section>
-    <h2>Portfolio</h2>
+    <h2 class="title">Portfolio</h2>
     <p>Ci-dessous, quelques exemples de réalisations effectuées durant la formation :</p>
     <div class="swiper">
       <i 
         @click="scrollLeft"
-        class="fa-solid fa-chevron-left"
+        class="icon fa-solid fa-chevron-left"
       ></i>
       <div class="items" ref="scrollContainer" :style="{ justifyContent: searchTerm !== '' ? 'center' : 'flex-start' }">
         <div 
@@ -136,12 +136,12 @@ onUnmounted(() => {
           <div class="item">
             <img :src="img.path" alt="image" draggable="false" />
           </div>
-          <a :href="`https://github.com/uns111code/${img.nameWithoutExtension}`">Détails</a>
+          <a class="links btn" :href="`https://github.com/uns111code/${img.nameWithoutExtension}`">Détails</a>
         </div>
       </div>
       <i 
         @click="scrollRight"
-        class="fa-solid fa-chevron-right"
+        class="icon fa-solid fa-chevron-right"
       ></i>
     </div>
   </section>
@@ -164,9 +164,10 @@ onUnmounted(() => {
   }
   .srch-input {
     padding: .5rem 1rem;
-    border-radius: 50px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
     font-size: 1rem;
+    background: transparent;
     &:focus {
         outline: none;
         border: 1px solid var(--primary-color);
@@ -225,7 +226,7 @@ onUnmounted(() => {
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      border: 1px solid var(--primary-color);
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       img {
         object-fit: contain;
@@ -233,16 +234,16 @@ onUnmounted(() => {
       }
     }
 
-    a {
-      background-color: var(--header-color);
-      padding: .5rem 2rem;
-      border-radius: 8px;
-      // border: 1px solid var(--primary-color);
-      transition: all 0.1s ease-in-out;
-      &:hover {
-        background-color: var(--primary-color);
-      }
-    }
+    // a.links {
+    //   background-color: var(--primary-color);
+    //   padding: .5rem 2rem;
+    //   border-radius: 8px;
+    //   // border: 1px solid var(--primary-color);
+    //   transition: all 0.1s ease-in-out;
+    //   &:hover {
+    //     background-color: var(--tertiary-color);
+    //   }
+    // }
 
     }
     

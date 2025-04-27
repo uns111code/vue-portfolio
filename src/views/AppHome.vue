@@ -3,28 +3,32 @@
 <template>
   <section id="profil" class="profil">
     <div class="accueil">
-      <h1>Younes Amini</h1>
+      <h1 class="title">Younes Amini</h1>
       <h4>Développeur Web</h4>
+      <a href="assets/CV-professionnel-gris-simple.pdf" download="Younes_Amini_CV.pdf" class="links download btn">
+        <!-- <i class="icon fa-solid fa-download"></i> -->
+         Télécharger mon CV</a>
     </div>
+    
     <div class="logo-section">
       <div class="logo">
-        <img src="../assets/img/YA logo.png" alt="" />
+        <img src="../assets/img/Younes.png" alt="" />
       </div>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
-.test {
-  position: absolute;
-  top: 50%;
-  left: 30%;
-}
-.test2 {
-  position: absolute;
-  top: 62%;
-  left: 30%;
-}
+// .test {
+//   position: absolute;
+//   top: 50%;
+//   left: 30%;
+// }
+// .test2 {
+//   position: absolute;
+//   top: 62%;
+//   left: 30%;
+// }
 
 
 
@@ -47,25 +51,26 @@
   justify-content: center;
   width: 15rem;
   height: 15rem;
-  background-color: var(--bg-color);
+  background-color: var(--secondary-color);
   position: relative;
   border-radius: 50%;
 }
 
 .logo {
+  position: absolute;
+  bottom: 0.5px;
+  right: 8px;
+  border-radius: 48%;
+  border-bottom-right-radius: 43%;
+  overflow-y: hidden;
   img {
-    transition: var(--transition);
-    filter: hue-rotate(250deg); /* 90deg ≈ vert */
-    border-radius: 50%;
-    height: 15rem;
-    width: 15rem;
+    position: relative;
+    top: 20px;
+    height: 100%;
+    width:80%;
   }
 }
 
-.logo-section:hover .logo img {
-  filter: hue-rotate(0deg);
-  transform: rotateY(360deg);
-}
 
 .profil .logo-section::after,
 .profil .logo-section::before {
@@ -76,9 +81,9 @@
   background-image: conic-gradient(
     from 0deg,
     transparent 30%,
-    var(--primary-color)
+    var(--quinary-color)
   );
-  top: -6px;
+  top: -5px;
   left: -5px;
   z-index: -10;
   box-sizing: unset;
@@ -102,22 +107,44 @@
   }
 }
 
-.profil .accueil h1 {
+.profil .accueil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  h1 {
   font-size: 40px;
-  color: var(--primary-color);
-  text-shadow: var(--text-shadow);
-  line-height: 5rem;
+  // color: var(--primary-color);
+  // text-shadow: var(--text-shadow);
 }
 
-h2 {
+// .btn {
+//       // background-color: var(--primary-color);
+//       // padding: .5rem 1rem;
+//       // width: fit-content;
+//       // border-radius: 8px;
+//       // border: 1px solid var(--primary-color);
+//       // transition: all 0.1s ease-in-out;
+//       // &:hover {
+//       //   background-color: var(--tertiary-color);
+//       // }
+// }
+
+  h2 {
   font-size: 25px;
   padding-bottom: 2rem;
+  color: var(--quaternary-color);
 }
+}
+
+
+
 
 /* --- Responsive --- */
 @media (min-width: 1024px) {
   .profil {
     height: 80vh;
+    flex-direction: row;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {

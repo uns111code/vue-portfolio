@@ -62,7 +62,7 @@ const submitForm = async () => {
 <template>
   <section class="contact-page">
     <div class="conatct-title">
-      <h2>CONTACTEZ-MOI ...</h2>
+      <h2 class="title">CONTACTEZ-MOI ...</h2>
       <p>Vous pouvez me contacter via le formulaire ou les liens proposés, je vous répondrai dans les meilleurs délais.</p>
     </div>
     <div class="contact-field">
@@ -70,21 +70,21 @@ const submitForm = async () => {
         <li
           @mouseover="isHovered = true"
           @mouseleave="isHovered = false">
-          <i class="fa-solid fa-location-dot"  :class="{ 'fa-bounce': isHovered }"></i>
+          <i class="icon fa-solid fa-location-dot"  :class="{ 'fa-bounce': isHovered }"></i>
           <a href="">38200 Vienne</a>
         </li>
         <li>
-          <i class="fa-solid fa-envelope"></i>
+          <i class="icon fa-solid fa-envelope"></i>
           <a href="mailto:uns.code111@gmail.com">uns.code111@gmail.com</a>
         </li>
         <li>
-          <i class="fa-brands fa-linkedin"></i>
+          <i class="icon fa-brands fa-linkedin"></i>
           <a href="https://www.linkedin.com/in/younes-amini-82a555356/"
             >linkedin.com/younes-amini</a
           >
         </li>
         <li>
-          <i class="fa-solid fa-at"></i>
+          <i class="icon fa-solid fa-at"></i>
           <a href="mailto:younesamini38@proton.me">younesamini38@proton.me</a>
         </li>
       </ul>
@@ -113,7 +113,7 @@ const submitForm = async () => {
           v-model="message"
           placeholder="Votre message"
         ></textarea>
-        <button @click="submitForm" :disabled="isSending">
+        <button @click="submitForm" :disabled="isSending" class="btn">
       <span v-if="isSending">Envoi...</span>
       <span v-else>Envoyer</span>
     </button>
@@ -193,15 +193,15 @@ const submitForm = async () => {
       }
       }
       button {
-        background-color: var(--header-color);
+        // background-color: var(--primary-color);
         padding: .5rem 2rem;
         border: none;
-        border-radius: 8px;
-        color: var(--text-color);
-        font-size: 1.3rem;
+        // border-radius: 8px;
+        // color: var(--quaternary-color);
+        // font-size: 1.3rem;
         align-self: center;
         &:hover {
-          background-color: var(--primary-color);
+          background-color: var(--tertiary-color);
         }
       }
     }

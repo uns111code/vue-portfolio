@@ -42,14 +42,14 @@ onUnmounted(() => {
         y2="1034.06"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="var(--header-color)" />
-        <stop offset="0.660527" stop-color="var(--header-color)" />
+        <stop stop-color="var(--tertiary-color)" />
+        <stop offset="0.660527" stop-color="var(--tertiary-color)" />
         <stop offset="1" stop-color="var(--primary-color)" />
       </linearGradient>
     </defs>
   </svg>
     <router-view v-slot="{ Component }">
-      <transition>
+      <transition  name="menu-fade" mode="out-in">
         <component :is="Component" />
       </transition>
     </router-view>
@@ -77,8 +77,8 @@ onUnmounted(() => {
         y2="465.596"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0.0348554" stop-color="var(--header-color)" />
-        <stop offset="0.532145" stop-color="var(--header-color)" />
+        <stop offset="0.0348554" stop-color="var(--tertiary-color)" />
+        <stop offset="0.532145" stop-color="var(--tertiary-color)" />
         <stop offset="0.870494" stop-color="var(--primary-color)" />
       </linearGradient>
     </defs>
@@ -95,11 +95,11 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%; /* prend toute la hauteur du parent */
+  height: 400px; /* prend toute la hauteur du parent */
   width: clamp(180px, 15vw, 467px); /* adaptatif : min 200px, idéal 30vw, max 467px */
   z-index: -1;
   pointer-events: none; /* optionnel : ne bloque pas les clics */
-  filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.197));
 }
 
 .bg-svg-bottom {
@@ -109,20 +109,32 @@ main {
   z-index: -999;
   background: linear-gradient();
   path {
-    // fill: var(--header-color); 
-    filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));
+    // fill: var(--tertiary-color); 
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.418));
   }
  
 }
 
-/* --- Responsive --- */
-@media (min-width: 1024px) {
-}
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-}
-</style>
+/* -----------------transittion vue --------------------*/
 
-<style lang="scss">
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+  transition: transform .8s ease;
+}
+
+.menu-fade-enter-from,
+.menu-fade-leave-to {
+  transform: translateX(100%);
+}
+
+.menu-fade-enter-to,
+.menu-fade-leave-from {
+  transform: translateX(0);
+}
+
+
+/* ************************************* cursor ********************************/
+
 .trace {
   position: absolute;
   width: 4rem;
@@ -137,33 +149,28 @@ main {
 }
 
 
-// @keyframes fadeOut {
-//   from {
-//     opacity: 1;
-//     transform: scale(1);
-//   }
-//   to {
-//     opacity: 0;
-//     transform: scale(10);
-//   }
-// }
-
-/* -----------------transittion vue --------------------*/
-
-.menu-fade-enter-active,
-.menu-fade-leave-active {
-  transition: opacity 1.3s ease, transform 1.3s ease;
-}
+/* --- Responsive --- */
+@media (min-width: 1024px) {
 
 .menu-fade-enter-from,
 .menu-fade-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
+  transform: translateY(100%);
 }
 
 .menu-fade-enter-to,
 .menu-fade-leave-from {
-  opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
+
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+}
+</style>
+
+<style lang="scss">
+
+
+
+
+
 </style>

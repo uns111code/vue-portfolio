@@ -79,7 +79,7 @@ onMounted(() => {
       <span class="navbar-burger-bar"></span>
     </button>
     <RouterLink to="/" class="logo">
-      <img src="../assets/img/YA logo.png" alt="">
+      <h2 class="icon">YA</h2>
     </RouterLink>
   <ul 
     class="navigation nav-items"
@@ -91,9 +91,9 @@ onMounted(() => {
       </div>
       <li v-for="li in displayedRoutes" :key="li.name" class="item">
           <RouterLink :to="li.path">
-            <i class="nav-icon" :class="[getIconClass(li.name), li.name]"  :style="{ display: route.name !== li.name || isOpen ? 'block' : 'none' }"></i
+            <i class="nav-icon icon" :class="[getIconClass(li.name), li.name]"  :style="{ display: route.name !== li.name || isOpen ? 'block' : 'none' }"></i
             >
-            <span class="nav-label" :class="li.name" :style="{ display: route.name === li.name || isOpen ? 'block' : 'none' }">{{ li.name.toUpperCase() }}</span>
+            <span class="nav-label icon" :class="li.name" :style="{ display: route.name === li.name || isOpen ? 'block' : 'none' }">{{ li.name.toUpperCase() }}</span>
               
           </RouterLink>
       </li>
@@ -122,23 +122,17 @@ onMounted(() => {
 .logo {
   height: 82.4px;
   width: 82.4px;
-  img {
-    transition: var(--transition);
-    filter: hue-rotate(250deg); /* 90deg ≈ vert */
-    border-radius: 50%;
-    height: 10rem;
-    width: 10rem;
-    transform: scale(1.2);
-    mix-blend-mode: multiply;
+  h2 {
+    font-family: "Rubik Dirt", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 4rem;
   }
 }
-.logo:hover img {
-  filter: hue-rotate(0deg); 
-  transform: scale(1.3);
-}
+
 
 header {
-  background-color: var(--header-color);
+  background-color: var(--tertiary-color);
 }
 
 nav {
@@ -164,8 +158,8 @@ nav {
     width: 100%;
     text-align: center;
     z-index: 10;
-    background-color: var(--header-color);
-    color: var(--primary-color);
+    // background-color: var(--tertiary-color);
+    // color: var(--quaternary-color);
     .item {
       a {
         display: flex;
@@ -244,9 +238,9 @@ nav {
 /* --- Responsive --- */
 @media (min-width: 1024px) {
 
-  header {
-    background-color: var(--header-color);
-  }
+  // header {
+  //   background-color: var(--tertiary-color);
+  // }
 
   nav {
     padding: 0;
@@ -292,7 +286,7 @@ header .hori-selector{
     
     transition-duration:0.6s;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background-color: var(--bg-color);
+    background-color: var(--secondary-color);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     z-index: -10;
@@ -302,7 +296,7 @@ header .hori-selector{
     position: absolute;
     width: 25px;
     height: 25px;
-    background-color: var(--bg-color);
+    background-color: var(--secondary-color);
     bottom: 0px;
   }
   .hori-selector .right{
@@ -318,7 +312,7 @@ header .hori-selector{
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background-color: var(--header-color);
+      background-color: var(--tertiary-color);
   }
   .hori-selector .right:before{
     bottom: 0;
@@ -328,6 +322,16 @@ header .hori-selector{
     bottom: 0;
       left: -25px;
   }
+
+
+
+//   .nav-label {
+//   color: var(--primary-color);
+// }
+
+// .nav-icon {
+//   color: var(--secondary-color);
+// }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {

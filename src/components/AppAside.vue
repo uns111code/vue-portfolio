@@ -23,7 +23,7 @@ const colors = [
   "rgb(51, 51, 51)",     // soft dark
   "rgb(201, 209, 217)",  // github gray
   "rgb(139, 148, 158)",  // secondary text
-  "rgb(245, 245, 245)",  // light gray
+  "rgb(2,53,98)",  // light gray
   "rgb(242, 242, 242)",  // light bg
   "rgb(237, 237, 237)",  // light neutral
   "rgb(255, 255, 255)",  // white
@@ -51,38 +51,53 @@ function changePrimaryColor(index) {
 function changeTextColor(index) {
   const root = document.querySelector(":root");
   const selectedColorText = colors[index];
-  root.style.setProperty("--text-color", selectedColorText);
+  root.style.setProperty("--quaternary-color", selectedColorText);
   localStorage.setItem("textColor", selectedColorText);
 }
 
 function changeBgColor(index) {
   const root = document.querySelector(":root");
   const selectedColorBg = colors[index];
-  root.style.setProperty("--bg-color", selectedColorBg);
+  root.style.setProperty("--secondary-color", selectedColorBg);
   localStorage.setItem("bgColor", selectedColorBg);
 }
 
 function changeHeaderColor(index) {
   const root = document.querySelector(":root");
   const selectedColorHeader = colors[index];
-  root.style.setProperty("--header-color", selectedColorHeader);
+  root.style.setProperty("--tertiary-color", selectedColorHeader);
   localStorage.setItem("headerColor", selectedColorHeader);
 }
+
+function changeTitleColor(index) {
+  const root = document.querySelector(":root");
+  const selectedColorTitle = colors[index];
+  root.style.setProperty("--quinary-color", selectedColorTitle);
+  localStorage.setItem("titleColor", selectedColorTitle);
+}
+
+function changeBtnColor(index) {
+  const root = document.querySelector(":root");
+  const selectedColorBtn = colors[index];
+  root.style.setProperty("--senary-color", selectedColorBtn);
+  localStorage.setItem("btnColor", selectedColorBtn);
+}
+
 
 watch(modes, (value) => {
   const root = document.querySelector(":root");
 
   if (value) {
     // Mode sombre
-    root.style.setProperty("--bg-color", "#252525");
-    root.style.setProperty("--text-color", "#F5F5F5");
-    root.style.setProperty("--header-color", "#121212");
+    root.style.setProperty("--secondary-color", "#252525");
+    root.style.setProperty("--quaternary-color", "#F5F5F5");
+    root.style.setProperty("--tertiary-color", "#121212");
     root.style.setProperty("--primary-color", "#f66c00");
   } else {
     // Mode clair
-    root.style.setProperty("--bg-color", localStorage.getItem("bgColor"));
-    root.style.setProperty("--text-color", localStorage.getItem("textColor"));
-    root.style.setProperty("--header-color", localStorage.getItem("headerColor"));
+    root.style.setProperty("--secondary-color", localStorage.getItem("bgColor"));
+    root.style.setProperty("--quaternary-color", localStorage.getItem("textColor"));
+    root.style.setProperty("--tertiary-color", localStorage.getItem("headerColor"));
     root.style.setProperty("--primary-color", localStorage.getItem("primaryColor"));
     // handleColorChange(0) 
   };
@@ -103,6 +118,10 @@ function handleColorChange(index) {
     changeBgColor(index);
   } else if (themes.value === "header") {
     changeHeaderColor(index);
+  } else if (themes.value === "title") {
+    changeTitleColor(index);
+  } else if (themes.value === "btn") {
+    changeBtnColor(index);
   }
 }
 
@@ -112,6 +131,8 @@ onMounted(() => {
   const savedColorText = localStorage.getItem("textColor");
   const savedColorBg = localStorage.getItem("bgColor");
   const savedColorHeader = localStorage.getItem("headerColor");
+  const savedColorBtn = localStorage.getItem("btnColor");
+  const savedColorTitle = localStorage.getItem("titleColor");
   const selectedMode = localStorage.getItem('modes')
   if (selectedMode === 'true') {
   modes.value = true
@@ -123,13 +144,19 @@ onMounted(() => {
     root.style.setProperty("--primary-color", savedColor);
   }
   if (savedColorText) {
-    root.style.setProperty("--text-color", savedColorText);
+    root.style.setProperty("--quaternary-color", savedColorText);
   }
   if (savedColorBg) {
-    root.style.setProperty("--bg-color", savedColorBg);
+    root.style.setProperty("--secondary-color", savedColorBg);
   }
   if (savedColorHeader) {
-    root.style.setProperty("--header-color", savedColorHeader);
+    root.style.setProperty("--tertiary-color", savedColorHeader);
+  }
+  if (savedColorBtn) {
+    root.style.setProperty("--senary-color", savedColorBtn);
+  }
+  if (savedColorTitle) {
+    root.style.setProperty("--quinary-color", savedColorTitle);
   }
 });
 
@@ -140,13 +167,15 @@ onMounted(() => {
   <aside>
     <section
       class="setting"
-      :style="{ '--right-value': setting ? '0' : '-105px' }"
+      :style="{ '--right-value': setting ? '0' : '-110px' }"
     >
       <select name="themes" id="themes" v-model="themes">
+        <option value="bg">1.Fond</option>
+        <option value="header">2.Fond</option>
+        <option value="btn">Bouton</option>
+        <option value="primary">Principal</option>
         <option value="text">Text</option>
-        <option value="primary">Primary</option>
-        <option value="bg">Bg</option>
-        <option value="header">header</option>
+        <option value="title">Titre</option>
       </select>
       <ul class="setting-list">
         <li
@@ -209,37 +238,37 @@ onMounted(() => {
     <section class="socials">
       <div class="aside-buttons">
         <button class="social-button aside-button">
-          <i class="fa-solid fa-diagram-project"></i>
+          <i class="icon fa-solid fa-diagram-project"></i>
         </button>
         <button
           class="discord-button aside-button"
           onclick="location.href='https://discord.com/channels/uns.111'"
         >
-          <i class="fa-brands fa-discord"></i>
+          <i class="icon fa-brands fa-discord"></i>
         </button>
         <button
           class="twitter-button aside-button"
           onclick="location.href='https://x.com/Unscode111'"
         >
-          <i class="fa-brands fa-square-x-twitter"></i>
+          <i class="icon fa-brands fa-square-x-twitter"></i>
         </button>
         <button
           class="github-button aside-button"
           onclick="location.href='https://github.com/uns111code'"
         >
-          <i class="fa-brands fa-github"></i>
+          <i class="icon fa-brands fa-github"></i>
         </button>
         <button
           class="dev-button aside-button"
           onclick="location.href='https://dev.to/younes_amini_9ca6d523d301'"
         >
-          <i class="fa-brands fa-dev"></i>
+          <i class="icon fa-brands fa-dev"></i>
         </button>
         <button
           class="whatsapp-button aside-button"
           onclick="location.href='https://www.whatsapp.com/'"
         >
-          <i class="fa-brands fa-whatsapp"></i>
+          <i class="icon fa-brands fa-whatsapp"></i>
         </button>
       </div>
     </section>
@@ -248,7 +277,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .setting {
-  background-color: var(--bg-color);
+  background-color: var(--tertiary-color);
   position: fixed;
   top: 50%;
   right: var(--right-value);
@@ -264,7 +293,7 @@ onMounted(() => {
 
   .btn-setting {
     box-shadow: var(--box-shadow);
-    background-color: var(--bg-color);
+    background-color: var(--tertiary-color);
     position: absolute;
     top: 50%;
     right: 100%;
@@ -294,8 +323,9 @@ onMounted(() => {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 1rem 0.5rem;
+  gap: 2px;
   li {
-    border: 1px solid var(--bg-color);
+    // border: 1px solid var(--secondary-color);
     padding: 10px;
     max-width: 5px;
   }
@@ -303,30 +333,31 @@ onMounted(() => {
 
 select {
   appearance: none;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
   padding: 0.5em 1em;
-  border-radius: 0.5em;
-  color: #333;
+  border-radius: 8px;
+  color: var(--quaternary-color);
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #888;
-    background-color: #f0f0f0;
+    border-color: var(--primary-color);
+    // background-color: #f0f0f0;
   }
 
   &:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    border-color: var(--primary-color);
   }
+
+  option {
+  background-color: var(--tertiary-color);
+  color: var(--quaternary-color);
+}
 }
 
-option {
-  background-color: #fff;
-  color: #333;
-}
+
 
 select {
   background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
@@ -356,8 +387,17 @@ select {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  background-color: #cecece;
   position: relative;
+  border: 1px solid var(--border-color);
+  &:hover {
+    border-color: var(--primary-color);
+    // background-color: #f0f0f0;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
 }
 
 #theme-checkbox:checked + label {
@@ -441,8 +481,9 @@ select {
   font-size: 1rem;
   height: 2rem;
   width: 2rem;
-  color: var(--text-color);
-  background-color: var(--header-color);
+  color: var(--primary-color);
+  background-color: var(--tertiary-color);
+  box-shadow: var(--box-shadow);
   border: none;
 }
 

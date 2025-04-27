@@ -3,7 +3,7 @@
 
 <template>
     <section class="bio">
-        <h2>A Propos de moi</h2>
+        <h2 class="title">A Propos de moi</h2>
         <p>
           Je m'appelle Younes Amini, et je suis actuellement en formation de
           développeur web chez CCI-Formation, où je développe mes compétences en
