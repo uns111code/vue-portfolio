@@ -155,8 +155,9 @@ onUnmounted(() => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
     gap: 2rem;
+    padding: 8rem 0;
+
   .search {
   padding: 0 1rem;
   svg {
@@ -250,6 +251,9 @@ onUnmounted(() => {
     
   }
 }
+.title+p {
+  padding: 0 1rem;
+}
 }
 
 
@@ -257,6 +261,14 @@ onUnmounted(() => {
 @media (min-width: 1024px) {
   .portfolio {
     height: 80vh;
+    padding-top: 0;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1230px) {
+  .portfolio  {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+  }
 </style>

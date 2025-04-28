@@ -95,7 +95,7 @@ const submitForm = async () => {
             <input type="text" placeholder="First Name" required /> -->
           <!-- </div> -->
         </label>
-        <input type="text" id="name" v-model="name" placeholder="Doe" required />
+        <input type="text" id="name" v-model="name" placeholder="Robert" required />
         <label for="email"><b>votre adresse e-mail</b></label>
         <input
           name="email"
@@ -111,7 +111,7 @@ const submitForm = async () => {
           name="message"
           id="message"
           v-model="message"
-          placeholder="Votre message"
+          placeholder="Bonjour...."
         ></textarea>
         <button @click="submitForm" :disabled="isSending" class="btn">
       <span v-if="isSending">Envoi...</span>

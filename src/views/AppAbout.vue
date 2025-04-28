@@ -33,10 +33,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 2vh;
     text-align: center;
     width: clamp(350px, 60vw, 80vw);
-    margin: 0 auto;
+    margin: 5rem auto;
     padding: clamp(1rem, 2.5rem, 8rem) 1rem;
     h2 {
         padding: 2rem 0;
@@ -48,6 +48,7 @@
 
     .bio {
     height: 80vh;
+    margin: 0 auto;
 }
 
 }

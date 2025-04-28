@@ -454,9 +454,8 @@ select {
 .socials {
   position: fixed;
   z-index: 9999;
-  bottom: -3%;
-  left: 65%;
-  transform: translateX(-50%);
+  bottom: -5%;
+  left: 50%;
 }
 
 /***section class="buttons"***/

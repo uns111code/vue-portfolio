@@ -42,8 +42,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5rem;
-  height: 80vh;
+  gap: 8rem;
+  margin: 8rem 0;
 }
 
 .profil .logo-section {
@@ -146,6 +146,7 @@
   .profil {
     height: 80vh;
     flex-direction: row;
+    margin: 0;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {

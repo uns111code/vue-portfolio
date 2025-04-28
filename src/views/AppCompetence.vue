@@ -52,7 +52,7 @@ const images = Object.keys(modules);
   gap: 5rem;
   text-align: center;
   width: clamp(350px, 60vw, 80vw);
-  margin: 0 auto;
+  margin: 5rem auto;
   padding: clamp(1rem, 2.5rem, 8rem) 1rem;
 
   h2 {
@@ -60,8 +60,10 @@ const images = Object.keys(modules);
   }
 
   .banner {
+    margin-top: auto;
     overflow: hidden;
     position: relative;
+    align-self: center;
     width: 100%;
     height: 6rem;
     mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
@@ -102,7 +104,9 @@ const images = Object.keys(modules);
 
 @media (min-width: 1024px) {
   #competences {
-    height: 80vh;
+    height: clamp(350px, 90vh, 500px);
+    gap: 0;
+    margin: 0 auto;
   }
 }
 </style>
