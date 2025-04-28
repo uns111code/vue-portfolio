@@ -43,6 +43,7 @@
   align-items: center;
   justify-content: center;
   gap: 5rem;
+  height: 80vh;
 }
 
 .profil .logo-section {
