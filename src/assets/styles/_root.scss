@@ -9,10 +9,14 @@
   
   --border-color: rgb(197, 196, 196); /* #c5c4c4 */
   --svg-color: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 100%, rgba(255, 235, 59, 1) 100%);
-  --primary-color-hover: rgba(var(--primary-color), , 0.278)
+  --primary-color-hover: rgba(var(--primary-color), , 0.278);
 
-  --border-radius: 1rem;
+  --border: 1px solid var(--border-color);
+  --border-radius: 15px;
+  --border-radius-sm: 8px;
   --box-shadow: 0px 0px 3px 0px var(--tertiary-color);
   --radius-100: 100px;
   --transition: all 0.3s ease-in-out;
+  --padding-mobile-components: 8rem;
+
 }

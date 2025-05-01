@@ -1,21 +1,31 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useIsMobile } from '../assets/js/useIsMobile';
+
+const { isMobile } = useIsMobile();
+// console.log(isMobile.value);
+
 
 // Récupère tous les fichiers d'un dossier
-const modules = import.meta.glob('@/assets/img/projects/desktop/*');
+const modulesDesktop = import.meta.glob('../assets/img/projects/desktop/*', { eager: true });
+const modulesMobile = import.meta.glob('../assets/img/projects/mobile/*', { eager: true }); 
+
+// isMobile est réactif, donc je dois utiliser un `computed` pour choisir dynamiquement :
+const selectedModules = computed(() => isMobile.value ? modulesMobile : modulesDesktop);
+
 
 // Transforme ça en une liste d'objets (path + nameWithoutExtension)
-const filteredImages = Object.keys(modules).map(path => {
-  const parts = path.split('/');
-  const fileName = parts[parts.length - 1]; // récupère le nom du fichier avec l'extension
-  
-  // Extraire le nom sans l'extension
-  const nameWithoutExtension = fileName.split('.')[0];
+const filteredImages = computed(() => {
+  return Object.entries(selectedModules.value).map(([path, mod]) => {
+    const parts = path.split('/');
+    const fileName = parts[parts.length - 1];
+    const nameWithoutExtension = fileName.split('.')[0];
 
-  return {
-    path,
-    nameWithoutExtension: nameWithoutExtension.toLowerCase() // on garde juste le nom sans l'extension
-  };
+    return {
+      path: mod.default,
+      nameWithoutExtension: nameWithoutExtension.toLowerCase()
+    };
+  });
 });
 
 /***************************************************************************search************************************** */
@@ -25,7 +35,7 @@ const searchTerm = ref(""); // on stock la valeur de l'input de search
 // Liste filtrée dynamiquement
 const filteredItems = computed(() => {
   const term = searchTerm.value.toLowerCase();
-  return filteredImages.filter(item =>
+  return filteredImages.value.filter(item =>
     item.nameWithoutExtension.includes(term) // Recherche uniquement par le nom sans l'extension
   );
 });
@@ -121,7 +131,7 @@ onUnmounted(() => {
       </svg>
     </section>
     <h2 class="title">Portfolio</h2>
-    <p>Ci-dessous, quelques exemples de réalisations effectuées durant la formation :</p>
+    <p class="text-color">Ci-dessous, quelques exemples de réalisations effectuées durant la formation :</p>
     <div class="swiper">
       <i 
         @click="scrollLeft"
@@ -134,7 +144,7 @@ onUnmounted(() => {
           :key="index"
         >
           <div class="item">
-            <img :src="img.path" alt="image" draggable="false" />
+            <img :src="img.path" :alt="img.nameWithoutExtension" draggable="false" />
           </div>
           <a class="links btn" :href="`https://github.com/uns111code/${img.nameWithoutExtension}`">Détails</a>
         </div>
@@ -149,6 +159,7 @@ onUnmounted(() => {
 
 
 <style lang="scss" scoped>
+
 .portfolio {
   text-align: center;
     display: flex;
@@ -157,7 +168,6 @@ onUnmounted(() => {
     justify-content: center;
     gap: 2rem;
     padding: 8rem 0;
-
   .search {
   padding: 0 1rem;
   svg {
@@ -190,17 +200,18 @@ onUnmounted(() => {
     font-size: 2rem;
     padding: 2rem;
     cursor: pointer;
+    display: none;
   }
 
 
 
   .items {
+    padding-bottom: .7rem;
     display: flex;
     gap: 1rem;
     width: clamp(350px, 60vw, 80vw);
     position: relative;
     cursor: grab;
-    overflow: scroll;
     scroll-behavior: smooth;
     cursor: grab;
     user-select: none;
@@ -210,10 +221,6 @@ onUnmounted(() => {
       display: none;
     }
 
-    // mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
-    // -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
-
-
 
     .item-container {
       display: flex;
@@ -221,31 +228,21 @@ onUnmounted(() => {
       flex-direction: column;
       gap: 2rem;
       .item {
-      width: 15rem;
-      height: 15rem;
+      width:max-content;
+      height: 50vh;
       flex: 0 0 auto; // important pour le scroll horizontal
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
+      border: var(--border);
+      border-radius: var(--border-radius-sm);
       img {
         object-fit: contain;
         flex: 1;
+        border-radius: var(--border-radius-sm);
       }
     }
-
-    // a.links {
-    //   background-color: var(--primary-color);
-    //   padding: .5rem 2rem;
-    //   border-radius: 8px;
-    //   // border: 1px solid var(--primary-color);
-    //   transition: all 0.1s ease-in-out;
-    //   &:hover {
-    //     background-color: var(--tertiary-color);
-    //   }
-    // }
 
     }
     
@@ -260,15 +257,24 @@ onUnmounted(() => {
 
 @media (min-width: 1024px) {
   .portfolio {
-    height: 80vh;
-    padding-top: 0;
-  }
-}
+    padding: 0;
+    height: calc(100vh - 87.2px - 18.4px);
 
-@media (min-width: 768px) and (max-width: 1230px) {
-  .portfolio  {
-        overflow-y: scroll;
-        overflow-x: hidden;
+    gap: clamp(1px, 1rem, 2rem);
+    .swiper {
+      .items {
+      .item-container {
+      .item {
+      width: 13vw;
+      height: 30vh;
+  }
+    }
+    }
+    i {
+      display: block;
+    }
     }
   }
+
+}
 </style>

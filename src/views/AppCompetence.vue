@@ -1,11 +1,19 @@
 <script setup>
+
+
+
+
+
+
+
+
+import { ref, onMounted } from 'vue';
+
+const images = ref([]);
 // Récupère tous les fichiers d'un dossier
-const modules = import.meta.glob('@/assets/img/langs-logos/*');
+const modules = import.meta.glob('/src/assets/img/langs-logos/*', { eager: true }); 
 
-
-
-// Transforme ça en une liste d'objets (ou juste les paths)
-const images = Object.keys(modules);
+images.value = Object.entries(modules).map(([path, mod]) => mod.default);
 
 
 
@@ -15,7 +23,7 @@ const images = Object.keys(modules);
   <section id="competences">
     <article>
       <h2 class="title">Compétences</h2>
-      <p>
+      <p class="text-color">
         Développeur full-stack passionné, je maîtrise les bases solides de HTML,
         CSS, JavaScript ainsi que le framework Vue.js, afin de créer des
         interfaces modernes et dynamiques. Côté back-end, je développe en PHP
@@ -23,7 +31,7 @@ const images = Object.keys(modules);
         bases de données SQL, la conception UI/UX via Figma, et je collabore
         efficacement en équipe grâce à Git.
       </p>
-      <p>
+      <p class="text-color">
         Mes compétences sont en constante évolution, car la joie que je trouve
         dans ce métier vient justement du fait qu’on en apprend tous les jours —
         surtout en étant impliqué, curieux et passionné.
@@ -49,28 +57,30 @@ const images = Object.keys(modules);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5rem;
   text-align: center;
-  width: clamp(350px, 60vw, 80vw);
-  margin: 5rem auto;
-  padding: clamp(1rem, 2.5rem, 8rem) 1rem;
+  padding: var(--padding-mobile-components) 2rem;
+  gap: 5rem;
+  p {
+        width: clamp(300px, 60vw, 80vw);
+    }
 
   h2 {
     padding: 2rem 0;
   }
 
   .banner {
-    margin-top: auto;
     overflow: hidden;
     position: relative;
     align-self: center;
-    width: 100%;
+    width: clamp(300px, 60vw, 1000px);
     height: 6rem;
     mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%, black 70%, transparent 100%);
 
     .slider {
       display: flex;
+      justify-content: center;
+      align-items: center;
       gap: 2rem;
       width: max-content;
       animation: scroll 20s linear infinite;
@@ -85,6 +95,7 @@ const images = Object.keys(modules);
         img {
           max-width: 100%;
           height: auto;
+          
         }
       }
     }
@@ -103,10 +114,11 @@ const images = Object.keys(modules);
 
 
 @media (min-width: 1024px) {
+
   #competences {
-    height: clamp(350px, 90vh, 500px);
-    gap: 0;
-    margin: 0 auto;
+  padding: 0;
+  gap: clamp(10px, 10vh, 5rem);
+  height: calc(100vh - 87.2px - 18.4px);
   }
 }
 </style>

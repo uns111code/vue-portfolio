@@ -5,11 +5,15 @@ const setting = ref(false);
 const themes = ref("primary");
 const modes = ref(false);
 
+
+// Func pour faire apparaître section.setting
 const openSetting = () => {
   setting.value = !setting.value;
 };
 
-document.querySelectorAll("main, footer, header").forEach((el) => {
+
+// Func pour faire disparaître section.setting
+document.querySelectorAll("section, footer, header").forEach((el) => {
   el.addEventListener("click", () => {
     setting.value = false;
   });
@@ -41,6 +45,9 @@ const colors = [
   "rgb(246, 108, 0)",    // near-black
 ];
 
+
+
+// Func pour changer la couleur primaire
 function changePrimaryColor(index) {
   const root = document.querySelector(":root");
   const selectedColor = colors[index];
@@ -48,6 +55,7 @@ function changePrimaryColor(index) {
   localStorage.setItem("primaryColor", selectedColor);
 }
 
+// Func pour changer la couleur de Text
 function changeTextColor(index) {
   const root = document.querySelector(":root");
   const selectedColorText = colors[index];
@@ -55,6 +63,7 @@ function changeTextColor(index) {
   localStorage.setItem("textColor", selectedColorText);
 }
 
+// Func pour changer la couleur Background
 function changeBgColor(index) {
   const root = document.querySelector(":root");
   const selectedColorBg = colors[index];
@@ -62,6 +71,7 @@ function changeBgColor(index) {
   localStorage.setItem("bgColor", selectedColorBg);
 }
 
+// Func pour changer la couleur Header
 function changeHeaderColor(index) {
   const root = document.querySelector(":root");
   const selectedColorHeader = colors[index];
@@ -69,6 +79,7 @@ function changeHeaderColor(index) {
   localStorage.setItem("headerColor", selectedColorHeader);
 }
 
+// Func pour changer la couleur de Titre
 function changeTitleColor(index) {
   const root = document.querySelector(":root");
   const selectedColorTitle = colors[index];
@@ -76,6 +87,7 @@ function changeTitleColor(index) {
   localStorage.setItem("titleColor", selectedColorTitle);
 }
 
+// Func pour changer la couleur de Boutons
 function changeBtnColor(index) {
   const root = document.querySelector(":root");
   const selectedColorBtn = colors[index];
@@ -83,23 +95,23 @@ function changeBtnColor(index) {
   localStorage.setItem("btnColor", selectedColorBtn);
 }
 
-
+// Func pour surveiller les changements de modes(ref)
 watch(modes, (value) => {
   const root = document.querySelector(":root");
 
   if (value) {
     // Mode sombre
-    root.style.setProperty("--secondary-color", "#252525");
+    root.style.setProperty("--secondary-color", "#252525");  // pour changer les valeurs de variables css
     root.style.setProperty("--quaternary-color", "#F5F5F5");
     root.style.setProperty("--tertiary-color", "#121212");
     root.style.setProperty("--primary-color", "#f66c00");
   } else {
     // Mode clair
-    root.style.setProperty("--secondary-color", localStorage.getItem("bgColor"));
+    root.style.setProperty("--secondary-color", localStorage.getItem("bgColor"));  // pour changer les valeurs de variables css par les valeurs stockées en localStorage
     root.style.setProperty("--quaternary-color", localStorage.getItem("textColor"));
     root.style.setProperty("--tertiary-color", localStorage.getItem("headerColor"));
     root.style.setProperty("--primary-color", localStorage.getItem("primaryColor"));
-    // handleColorChange(0) 
+
   };
   localStorage.setItem('modes', value)
 });
@@ -108,7 +120,7 @@ watch(modes, (value) => {
 
 
 
-
+// Func principle pour changer les couleurs selon les valeurs des options de select
 function handleColorChange(index) {
   if (themes.value === "primary") {
     changePrimaryColor(index);    
@@ -125,6 +137,7 @@ function handleColorChange(index) {
   }
 }
 
+// Func pour appliqué les couleurs stocké en Localstorage aprés chargement de page
 onMounted(() => {
   const root = document.querySelector(":root");
   const savedColor = localStorage.getItem("primaryColor");
@@ -167,7 +180,7 @@ onMounted(() => {
   <aside>
     <section
       class="setting"
-      :style="{ '--right-value': setting ? '0' : '-110px' }"
+      :style="{ '--right-value': setting ? '0' : '-108.79px' }"
     >
       <select name="themes" id="themes" v-model="themes">
         <option value="bg">1.Fond</option>
@@ -185,7 +198,7 @@ onMounted(() => {
           :style="{ backgroundColor: color }"
         ></li>
       </ul>
-      <!-- From Uiverse.io by MRez321 -->
+
       <div class="theme-switch">
         <input type="checkbox" id="theme-checkbox" v-model="modes"/>
         <label for="theme-checkbox">
@@ -276,12 +289,15 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+aside {
+  position: relative;
+}
 .setting {
   background-color: var(--tertiary-color);
   position: fixed;
-  top: 50%;
   right: var(--right-value);
-  transform: translateY(-50%);
+  bottom: 50%;
+  transform: translateY(50%);
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   box-shadow: var(--box-shadow);
@@ -298,8 +314,8 @@ onMounted(() => {
     top: 50%;
     right: 100%;
     transform: translateY(-50%);
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
     padding: 0.5rem 0.3rem 0.2rem 0.3rem;
     svg {
       animation: setting 5s linear infinite;
@@ -323,9 +339,9 @@ onMounted(() => {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 1rem 0.5rem;
-  gap: 2px;
+  // gap: 2px;
   li {
-    // border: 1px solid var(--secondary-color);
+    border: var(--border);
     padding: 10px;
     max-width: 5px;
   }
@@ -334,12 +350,12 @@ onMounted(() => {
 select {
   appearance: none;
   background-color: transparent;
-  border: 1px solid var(--border-color);
+  border: var(--border);
   padding: 0.5em 1em;
-  border-radius: 8px;
+  border-radius: var(--border-radius-sm);
   color: var(--quaternary-color);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 
   &:hover {
     border-color: var(--primary-color);
@@ -388,7 +404,7 @@ select {
   display: flex;
   justify-content: space-between;
   position: relative;
-  border: 1px solid var(--border-color);
+  border: var(--border);
   &:hover {
     border-color: var(--primary-color);
     // background-color: #f0f0f0;
@@ -454,8 +470,9 @@ select {
 .socials {
   position: fixed;
   z-index: 9999;
-  bottom: -5%;
-  left: 50%;
+  bottom: 50vh;
+  left: 0%;
+  transform: translateY(50%);
 }
 
 /***section class="buttons"***/
@@ -506,7 +523,7 @@ select {
   background: #fffc00;
 }
 .aside-buttons:hover .dev-button {
-  translate: 50px 0px;
+  translate: 0px 50px;
 }
 
 /***whatsapp button***/
@@ -519,7 +536,7 @@ select {
   background: #25d366;
 }
 .aside-buttons:hover .whatsapp-button {
-  translate: 32px -28px;
+  translate: 28px 32px;
 }
 
 /***discord button***/
@@ -532,7 +549,7 @@ select {
   background: #5865f2;
 }
 .aside-buttons:hover .discord-button {
-  translate: 0px -40px;
+  translate: 40px 0px;
 }
 
 /***twitter button***/
@@ -545,7 +562,7 @@ select {
   background: #001aff;
 }
 .aside-buttons:hover .twitter-button {
-  translate: -32px -28px;
+  translate: 28px -32px;
 }
 
 /***github button***/
@@ -558,12 +575,7 @@ select {
   background: #ff4500;
 }
 .aside-buttons:hover .github-button {
-  translate: -50px 0px;
+  translate: 0px -50px;
 }
 
-/* --- Responsive --- */
-@media (min-width: 1024px) {
-}
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-}
 </style>

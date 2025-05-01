@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <footer>
+  <footer class="text-color">
     <p>&copy; 2025 Younes Amini</p>
 
     <nav>
@@ -26,7 +26,8 @@
 footer {
   text-align: center;
   padding: 1rem;
-  justify-self: flex-end;
+  font-size: 12px;
+  background-color: var(--tertiary-color);
 }
 
 
@@ -37,10 +38,11 @@ footer {
 /* --- Responsive --- */
 @media (min-width: 1024px) {
   footer {
-    display: none;
     > *:not(:first-child) {
       display: none;
   }
+
+  padding: 0;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 1023px) {

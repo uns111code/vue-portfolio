@@ -2,11 +2,12 @@
 import { ref, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-const route = useRoute();
-const router = useRouter();
-const displayedRoutes = router.options.routes
+const route = useRoute(); // Récupère l'objet de la route actuellement active
+const router = useRouter(); // Fournit l'instance du routeur
+const displayedRoutes = router.options.routes; // Accède à la liste des routes définies dans le routeur
 
 
+// func pour déplacer horiSelector
 const navPosition = () => {
   const root = document.querySelector("body");
 
@@ -25,16 +26,17 @@ const navPosition = () => {
 
 //  surveiller l'url
 watch(
-  () => route.path,
+  () => route.path,   //  Fonction de suivi : elle retourne la valeur qu'on veut observer ici (le chemin de la route)
   () => {
-    navPosition();
-  },
+    navPosition();     //  Callback déclenché chaque fois que route.path change
+  }
 );
 
 // Appeler une fois au démarrage
 navPosition();
 
 
+// menu
 const isOpen = ref(false);
 
 const toggleMenu = () => {
@@ -60,6 +62,7 @@ function getIconClass(name) {
 }
 
 
+// function pour férmer le menu
 onMounted(() => {
   document.querySelectorAll("main, .item").forEach((el) => {
     el.addEventListener('click', () => {
@@ -97,33 +100,22 @@ onMounted(() => {
               
           </RouterLink>
       </li>
-
-      <!-- <li>
-        <RouterLink class="links" to="/" @click="toggleMenu">Accueil</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="links" to="/about" @click="toggleMenu">Profil</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="links" to="/competence" @click="toggleMenu">Compétences</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="links" to="/project" @click="toggleMenu">Projets</RouterLink>
-      </li>
-      <li>
-        <RouterLink class="links" to="/contact" @click="toggleMenu">Contact</RouterLink>
-      </li> -->
   </ul>
   </nav>
   </header>
 </template>
 
 <style lang="scss" scoped>
+
+header {
+  background-color: var(--tertiary-color);
+}
+
 .logo {
   height: 82.4px;
   width: 82.4px;
   h2 {
-    font-family: "Rubik Dirt", system-ui;
+    font-family: "Rubik Dirt";
     font-weight: 400;
     font-style: normal;
     font-size: 4rem;
@@ -131,9 +123,6 @@ onMounted(() => {
 }
 
 
-header {
-  background-color: var(--tertiary-color);
-}
 
 nav {
     display: flex;
@@ -141,12 +130,6 @@ nav {
     align-items: center;
     padding: 1rem 2rem 1rem 0.5rem;
     position: relative;
-    // border: 1px solid var(--border-color);
-    // border-bottom-right-radius: 8px;
-    // border-bottom-left-radius: 8px;
-    // &:hover {
-    //   border: 1px solid var(--primary-color);
-    // }
 }
 
 .navigation {
@@ -160,8 +143,6 @@ nav {
     z-index: 10;
     background-color: var(--tertiary-color);
 
-    // background-color: var(--tertiary-color);
-    // color: var(--quaternary-color);
     .item {
       a {
         display: flex;
@@ -240,9 +221,6 @@ nav {
 /* --- Responsive --- */
 @media (min-width: 1024px) {
 
-  // header {
-  //   background-color: var(--tertiary-color);
-  // }
 
   nav {
     padding: 0;
@@ -326,18 +304,6 @@ header .hori-selector{
   }
 
 
-
-//   .nav-label {
-//   color: var(--primary-color);
-// }
-
-// .nav-icon {
-//   color: var(--secondary-color);
-// }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    
 }
 
 </style>

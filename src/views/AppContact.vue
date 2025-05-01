@@ -3,8 +3,6 @@ import { ref } from 'vue'
 
 const isHovered = ref(false);
 
-
-
 const name = ref('');
 const email = ref('');
 const message = ref('');
@@ -12,7 +10,7 @@ const status = ref('');
 const isSending = ref(false);
 const isSuccess = ref(false);
 
-const WEB3FORMS_ACCESS_KEY = 'cf4df417-93e9-4ac3-842a-1744701b0daf'; // Remplace ça par ta clé
+const WEB3FORMS_ACCESS_KEY = 'cf4df417-93e9-4ac3-842a-1744701b0daf'; 
 
 const submitForm = async () => {
   if (!name.value || !email.value || !message.value) {
@@ -63,7 +61,7 @@ const submitForm = async () => {
   <section class="contact-page">
     <div class="conatct-title">
       <h2 class="title">CONTACTEZ-MOI ...</h2>
-      <p>Vous pouvez me contacter via le formulaire ou les liens proposés, je vous répondrai dans les meilleurs délais.</p>
+      <p class="text-color">Vous pouvez me contacter via le formulaire ou les liens proposés, je vous répondrai dans les meilleurs délais.</p>
     </div>
     <div class="contact-field">
       <ul class="contact">
@@ -71,32 +69,29 @@ const submitForm = async () => {
           @mouseover="isHovered = true"
           @mouseleave="isHovered = false">
           <i class="icon fa-solid fa-location-dot"  :class="{ 'fa-bounce': isHovered }"></i>
-          <a href="">38200 Vienne</a>
+          <a href="https://www.google.com/maps/place/38200+Vienne/@45.5220692,4.8391338,13z/data=!3m1!4b1!4m6!3m5!1s0x47f4df0824f5f985:0xc4e1bb60b45a03c3!8m2!3d45.525587!4d4.874339!16zL20vMDJtcnhz?authuser=0&entry=ttu&g_ep=EgoyMDI1MDQyOC4wIKXMDSoASAFQAw%3D%3D"  class="text-color">38200 Vienne</a>
         </li>
         <li>
           <i class="icon fa-solid fa-envelope"></i>
-          <a href="mailto:uns.code111@gmail.com">uns.code111@gmail.com</a>
+          <a href="mailto:uns.code111@gmail.com" class="text-color">uns.code111@gmail.com</a>
         </li>
         <li>
           <i class="icon fa-brands fa-linkedin"></i>
           <a href="https://www.linkedin.com/in/younes-amini-82a555356/"
-            >linkedin.com/younes-amini</a
+          class="text-color">linkedin.com/younes-amini</a
           >
         </li>
         <li>
           <i class="icon fa-solid fa-at"></i>
-          <a href="mailto:younesamini38@proton.me">younesamini38@proton.me</a>
+          <a href="mailto:younesamini38@proton.me" class="text-color">younesamini38@proton.me</a>
         </li>
       </ul>
       <div class="form">
         <label class="name-field">
-          <b>Votre nom</b>
-          <!-- <div class="name-inputs">
-            <input type="text" placeholder="First Name" required /> -->
-          <!-- </div> -->
+          <b class="text-color">Votre nom</b>
         </label>
         <input type="text" id="name" v-model="name" placeholder="Robert" required />
-        <label for="email"><b>votre adresse e-mail</b></label>
+        <label for="email"><b class="text-color">votre adresse e-mail</b></label>
         <input
           name="email"
           id="email"
@@ -105,7 +100,7 @@ const submitForm = async () => {
           placeholder="you@example.com"
           required
         />
-        <label for="message"><b>Votre message</b></label>
+        <label for="message"><b class="text-color">Votre message</b></label>
         <textarea
           class="message-contact"
           name="message"
@@ -166,13 +161,13 @@ const submitForm = async () => {
       input {
         background: transparent;
         border: none;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: var(--border);
         width: 20rem;
         padding: .5rem 0;
         caret-color: var(--primary-color);
         &:focus {
         outline: none;
-        border-bottom: 1px solid var(--primary-color);
+        border-bottom-color: var(--primary-color);
       }
 
 
@@ -187,22 +182,15 @@ const submitForm = async () => {
         padding: 1rem .5rem;
         resize: none;
         border-radius: 8px;
-        border: 1px solid var(--border-color);
+        border: var(--border);
         &:focus {
-          border: 1px solid var(--primary-color);
+          border-color: var(--primary-color);
       }
       }
       button {
-        // background-color: var(--primary-color);
         padding: .5rem 2rem;
         border: none;
-        // border-radius: 8px;
-        // color: var(--quaternary-color);
-        // font-size: 1.3rem;
         align-self: center;
-        &:hover {
-          background-color: var(--tertiary-color);
-        }
       }
     }
   }
@@ -237,7 +225,8 @@ button[disabled] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: clamp(70vh, 80vh, 90vh);
+  height: calc(100vh - 87.2px - 18.4px);
+
   .conatct-title {
     padding-bottom: 0;
     padding-top: 0;
@@ -263,12 +252,12 @@ button[disabled] {
         display: none;
       }
       input {
-          border: 1px solid var(--border-color);
+          border: var(--border);
           border-radius: 6px;
           padding-left: .5rem;
           &:focus {
-          outline: none;
-          border: 1px solid var(--primary-color);
+          outline: none; // pour enléver le  Le contour 
+          border-color: var(--primary-color);
       }
         }
 
@@ -284,20 +273,6 @@ button[disabled] {
     }
   }
 }
+}
 
-#name {
-  background-image: url(/src/assets/styles/img/address-card-regular.svg);
-  background-repeat: no-repeat;
-  background-position: 98% 50%;
-  background-size: 1.5rem;
-}
-#email {
-  background-image: url(/src/assets/styles/img/at-solid.svg);
-  background-repeat: no-repeat;
-  background-position: 98% 50%;
-  background-size: 1.3rem;
-}
-}
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-}
 </style>

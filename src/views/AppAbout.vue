@@ -4,7 +4,7 @@
 <template>
     <section class="bio">
         <h2 class="title">A Propos de moi</h2>
-        <p>
+        <p class="text-color">
           Je m'appelle Younes Amini, et je suis actuellement en formation de
           développeur web chez CCI-Formation, où je développe mes compétences en
           programmation, design web et gestion de projets numériques. À la fin
@@ -35,25 +35,25 @@
     justify-content: center;
     gap: 2vh;
     text-align: center;
-    width: clamp(350px, 60vw, 80vw);
-    margin: 5rem auto;
-    padding: clamp(1rem, 2.5rem, 8rem) 1rem;
+    min-height: calc(100vh - 114.4px - 87.57);
+    
+    padding: var(--padding-mobile-components) 2rem;
     h2 {
         padding: 2rem 0;
+    }
+
+    p {
+        width: clamp(300px, 60vw, 80vw);
+        margin-bottom: 5rem;
     }
 }
 
 /* --- Responsive --- */
 @media (min-width: 1024px) {
-
     .bio {
-    height: 80vh;
-    margin: 0 auto;
-}
+    height: calc(100vh - 87.2px - 18.4px);
+    padding: 0;
 
 }
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    
 }
-
 </style>

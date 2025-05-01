@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/vue-portfolio/', // très important pour GitHub Pages
   plugins: [
     vue(),
     vueDevTools(),
