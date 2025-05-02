@@ -206,14 +206,16 @@ button[disabled] {
 
 .success {
   color: green;
+
 }
 .error {
   color: red;
 }
 .status-message {
         position: absolute;
-        bottom: 0;
+        bottom: 0%;
         transform: translateY(80%);
+        z-index: 999;
       }
 
 

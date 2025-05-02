@@ -241,5 +241,9 @@ main {
     height: 40px;
     min-height: 40px;
   }
+  .trace,
+  .trace-click {
+    display: none;
+  }
 }
 </style>

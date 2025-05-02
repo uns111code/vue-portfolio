@@ -1,203 +1,133 @@
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from 'vue'
 
 const setting = ref(false);
-const themes = ref("primary");
+const themes = ref('primary');
 const modes = ref(false);
+const hue = ref(0);
+const lightness = ref(50);
+const saturation = ref(100);
 
-
-// Func pour faire apparaître section.setting
 const openSetting = () => {
-  setting.value = !setting.value;
-};
-
-
-// Func pour faire disparaître section.setting
-document.querySelectorAll("section, footer, header").forEach((el) => {
-  el.addEventListener("click", () => {
-    setting.value = false;
-  });
-});
-
-/* ************************** changement de theme ************************** */
-const colors = [
-  "rgb(255, 111, 97)",   // coral
-  "rgb(30, 30, 30)",     // dark gray
-  "rgb(13, 17, 23)",     // github dark
-  "rgb(51, 51, 51)",     // soft dark
-  "rgb(201, 209, 217)",  // github gray
-  "rgb(139, 148, 158)",  // secondary text
-  "rgb(2,53,98)",  // light gray
-  "rgb(242, 242, 242)",  // light bg
-  "rgb(237, 237, 237)",  // light neutral
-  "rgb(255, 255, 255)",  // white
-  "rgb(88, 166, 255)",   // accent blue
-  "rgb(127, 219, 255)",  // light blue
-  "rgb(76, 175, 80)",    // green
-  "rgb(0, 191, 166)",    // teal
-  "rgb(136, 176, 75)",   // soft green
-  "rgb(255, 180, 0)",    // accent yellow
-  "rgb(162, 155, 254)",  // lavender
-  "rgb(107, 91, 149)",   // deep purple
-  // ******************** dark mode ********************************* //
-  "rgb(37, 37, 37)",     // dark gray
-  "rgb(18, 18, 18)",     // orange
-  "rgb(246, 108, 0)",    // near-black
-];
-
-
-
-// Func pour changer la couleur primaire
-function changePrimaryColor(index) {
-  const root = document.querySelector(":root");
-  const selectedColor = colors[index];
-  root.style.setProperty("--primary-color", selectedColor);
-  localStorage.setItem("primaryColor", selectedColor);
+  setting.value = !setting.value
 }
 
-// Func pour changer la couleur de Text
-function changeTextColor(index) {
-  const root = document.querySelector(":root");
-  const selectedColorText = colors[index];
-  root.style.setProperty("--quaternary-color", selectedColorText);
-  localStorage.setItem("textColor", selectedColorText);
-}
-
-// Func pour changer la couleur Background
-function changeBgColor(index) {
-  const root = document.querySelector(":root");
-  const selectedColorBg = colors[index];
-  root.style.setProperty("--secondary-color", selectedColorBg);
-  localStorage.setItem("bgColor", selectedColorBg);
-}
-
-// Func pour changer la couleur Header
-function changeHeaderColor(index) {
-  const root = document.querySelector(":root");
-  const selectedColorHeader = colors[index];
-  root.style.setProperty("--tertiary-color", selectedColorHeader);
-  localStorage.setItem("headerColor", selectedColorHeader);
-}
-
-// Func pour changer la couleur de Titre
-function changeTitleColor(index) {
-  const root = document.querySelector(":root");
-  const selectedColorTitle = colors[index];
-  root.style.setProperty("--quinary-color", selectedColorTitle);
-  localStorage.setItem("titleColor", selectedColorTitle);
-}
-
-// Func pour changer la couleur de Boutons
-function changeBtnColor(index) {
-  const root = document.querySelector(":root");
-  const selectedColorBtn = colors[index];
-  root.style.setProperty("--senary-color", selectedColorBtn);
-  localStorage.setItem("btnColor", selectedColorBtn);
-}
-
-// Func pour surveiller les changements de modes(ref)
-watch(modes, (value) => {
-  const root = document.querySelector(":root");
-
-  if (value) {
-    // Mode sombre
-    root.style.setProperty("--secondary-color", "#252525");  // pour changer les valeurs de variables css
-    root.style.setProperty("--quaternary-color", "#F5F5F5");
-    root.style.setProperty("--tertiary-color", "#121212");
-    root.style.setProperty("--primary-color", "#f66c00");
-  } else {
-    // Mode clair
-    root.style.setProperty("--secondary-color", localStorage.getItem("bgColor"));  // pour changer les valeurs de variables css par les valeurs stockées en localStorage
-    root.style.setProperty("--quaternary-color", localStorage.getItem("textColor"));
-    root.style.setProperty("--tertiary-color", localStorage.getItem("headerColor"));
-    root.style.setProperty("--primary-color", localStorage.getItem("primaryColor"));
-
-  };
-  localStorage.setItem('modes', value)
-});
-
-
-
-
-
-// Func principle pour changer les couleurs selon les valeurs des options de select
-function handleColorChange(index) {
-  if (themes.value === "primary") {
-    changePrimaryColor(index);    
-  } else if (themes.value === "text") {
-    changeTextColor(index);
-  } else if (themes.value === "bg") {
-    changeBgColor(index);
-  } else if (themes.value === "header") {
-    changeHeaderColor(index);
-  } else if (themes.value === "title") {
-    changeTitleColor(index);
-  } else if (themes.value === "btn") {
-    changeBtnColor(index);
-  }
-}
-
-// Func pour appliqué les couleurs stocké en Localstorage aprés chargement de page
+// Fermer la section de paramètre en cliquant à l’extérieur
 onMounted(() => {
-  const root = document.querySelector(":root");
-  const savedColor = localStorage.getItem("primaryColor");
-  const savedColorText = localStorage.getItem("textColor");
-  const savedColorBg = localStorage.getItem("bgColor");
-  const savedColorHeader = localStorage.getItem("headerColor");
-  const savedColorBtn = localStorage.getItem("btnColor");
-  const savedColorTitle = localStorage.getItem("titleColor");
-  const selectedMode = localStorage.getItem('modes')
-  if (selectedMode === 'true') {
-  modes.value = true
-} else {
-  modes.value = false
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.setting') && !e.target.closest('.btn-setting')) {
+      setting.value = false
+    }
+  })
+})
+
+// Navigation simple
+const goTo = (url) => {
+  window.open(url, '_blank')
 }
 
-  if (savedColor) {
-    root.style.setProperty("--primary-color", savedColor);
-  }
-  if (savedColorText) {
-    root.style.setProperty("--quaternary-color", savedColorText);
-  }
-  if (savedColorBg) {
-    root.style.setProperty("--secondary-color", savedColorBg);
-  }
-  if (savedColorHeader) {
-    root.style.setProperty("--tertiary-color", savedColorHeader);
-  }
-  if (savedColorBtn) {
-    root.style.setProperty("--senary-color", savedColorBtn);
-  }
-  if (savedColorTitle) {
-    root.style.setProperty("--quinary-color", savedColorTitle);
-  }
-});
+// Génère une couleur HSLA
+const hslaColor = computed(() => {
+  // const alpha = lightness.value
+  return `hsla(${hue.value}, ${saturation.value}%, ${lightness.value}%, 1)`
+})
 
+// Change la couleur CSS selon le thème sélectionné
+function handleColorChange(color) {
+  const root = document.documentElement
+  const map = {
+    primary: '--primary-color',
+    text: '--quaternary-color',
+    bg: '--secondary-color',
+    header: '--tertiary-color',
+    title: '--quinary-color',
+    btn: '--senary-color',
+  }
 
+  const variable = map[themes.value]
+  if (variable) {
+    root.style.setProperty(variable, color)
+    localStorage.setItem(variable, color)
+  }
+}
+
+// Appliquer le changement à chaque modification
+watch([hue, lightness, saturation], () => {
+  handleColorChange(hslaColor.value);
+})
+
+// Mode sombre / clair
+watch(modes, (value) => {
+  const root = document.documentElement
+  if (value) {
+    root.style.setProperty('--secondary-color', 'hsla(0, 100%, 0%, 1)')
+    root.style.setProperty('--quaternary-color', 'hsl(0, 0%, 100%)')
+    root.style.setProperty('--tertiary-color', 'hsl(248, 10%, 16%)')
+    root.style.setProperty('--primary-color', 'hsla(27, 100%, 48%, 1)')
+    root.style.setProperty('--quinary-color', 'hsla(27, 100%, 48%, 1)')
+    root.style.setProperty('--senary-color', 'hsla(27, 100%, 48%, 1)')
+  } else {
+    root.style.setProperty('--secondary-color', localStorage.getItem('--secondary-color'))
+    root.style.setProperty('--quaternary-color', localStorage.getItem('--quaternary-color'))
+    root.style.setProperty('--tertiary-color', localStorage.getItem('--tertiary-color'))
+    root.style.setProperty('--primary-color', localStorage.getItem('--primary-color'))
+  }
+  localStorage.setItem('modes', value)
+})
+
+// Initialiser les couleurs sauvegardées
+onMounted(() => {
+  const root = document.documentElement
+  const vars = ['--primary-color', '--quaternary-color', '--secondary-color', '--tertiary-color', '--quinary-color', '--senary-color']
+  vars.forEach((v) => {
+    const val = localStorage.getItem(v)
+    if (val) root.style.setProperty(v, val)
+  })
+
+  const savedMode = localStorage.getItem('modes')
+  modes.value = savedMode === 'true'
+})
 </script>
 
+
 <template>
+
   <aside>
     <section
       class="setting"
       :style="{ '--right-value': setting ? '0' : '-108.79px' }"
     >
       <select name="themes" id="themes" v-model="themes">
-        <option value="bg">1.Fond</option>
-        <option value="header">2.Fond</option>
-        <option value="btn">Bouton</option>
-        <option value="primary">Principal</option>
-        <option value="text">Text</option>
-        <option value="title">Titre</option>
+        <option value="btn">Boutons</option>
+        <option value="header">En-tête</option>
+        <option value="bg">Fond</option>
+        <option value="primary">Icons</option>
+        <option value="text">Texts</option>
+        <option value="title">Titres</option>
       </select>
-      <ul class="setting-list">
-        <li
-          v-for="(color, index) in colors"
-          :key="color + index"
-          @click="handleColorChange(index)"
-          :style="{ backgroundColor: color }"
-        ></li>
-      </ul>
+      <div class="color-range">
+        <div class="hue-container"><input type="range" id="hue" v-model="hue" min="0" max="360" /></div>
+        <div class="lightness-container">
+          <input 
+            type="range" 
+            id="lightness" 
+            v-model="lightness" 
+            min="0" 
+            max="100" 
+            class="lightness-slider" 
+            :style="`background: linear-gradient(to right, rgba(0, 0, 0, 1), ${hslaColor}, white);`"
+          />
+        </div>
+        <div class="saturation-container">
+          <input 
+            type="range" 
+            id="saturation" 
+            v-model="saturation"
+            min="0" 
+            max="100"
+            :style="`background: linear-gradient(to right, white, ${hslaColor});`"
+            ></div>
+      </div>
 
       <div class="theme-switch">
         <input type="checkbox" id="theme-checkbox" v-model="modes"/>
@@ -248,6 +178,7 @@ onMounted(() => {
         </svg>
       </div>
     </section>
+
     <section class="socials">
       <div class="aside-buttons">
         <button class="social-button aside-button">
@@ -289,6 +220,78 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.color-range {
+  height: 14.5rem;
+
+  position: relative;
+  div {
+    position: absolute;
+    top: 45%;
+  }
+  .hue-container {
+    transform: rotate(-90deg);
+    width: 12rem;
+    right: -25%;
+  }
+  .lightness-container {
+    transform: rotate(90deg);
+    width: 12rem;
+    left: -53%;
+  }
+  .saturation-container {
+    transform: rotate(90deg);
+    width: 12rem;
+    left: -20%;
+  }
+}
+
+
+input[type="range"] {
+  width: 100%;
+  -webkit-appearance: none; /* Retirer l'apparence par défaut */
+  appearance: none;
+  height: 20px;
+  border-radius: 4px;
+  outline: none;
+  // margin: 10px 0;
+  background: linear-gradient(to right, red, yellow, lime, cyan, blue, magenta, red);
+  
+}
+
+
+        /* Personnalisation du cercle (thumb) */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Retirer l'apparence par défaut */
+            appearance: none;
+            width: 10px; /* Largeur du cercle */
+            height: 20px; /* Hauteur du cercle */
+            background: transparent; /* Couleur du cercle */
+            border: 2px solid var(--border-color);
+            cursor: pointer; /* Curseur de main pour interaction */
+            border-radius: 0;
+        }
+
+        /* Pour Firefox */
+        input[type="range"]::-moz-range-thumb {
+            width: 10px;
+            height: 20px;
+            cursor: pointer;
+            background: transparent; /* Couleur du cercle */
+            border: 2px solid var(--border-color);
+            border-radius: 0;
+        }
+
+        /* Pour Internet Explorer */
+        input[type="range"]::-ms-thumb {
+            width: 10px;
+            height: 20px;
+            cursor: pointer;
+            background: transparent; /* Couleur du cercle */
+            border: 2px solid var(--border-color);
+            border-radius: 0;
+        }
+
+
 aside {
   position: relative;
 }
@@ -335,25 +338,16 @@ aside {
   }
 }
 
-.setting-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 1rem 0.5rem;
-  // gap: 2px;
-  li {
-    border: var(--border);
-    padding: 10px;
-    max-width: 5px;
-  }
-}
 
 select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
-  background-color: transparent;
+  background-color: var(--tertiary-color);
   border: var(--border);
   padding: 0.5em 1em;
   border-radius: var(--border-radius-sm);
-  color: var(--quaternary-color);
+  color: var(--primary-color);
   cursor: pointer;
   transition: var(--transition);
 
@@ -369,18 +363,18 @@ select {
 
   option {
   background-color: var(--tertiary-color);
-  color: var(--quaternary-color);
+  color: var(--primary-color);
+  
 }
-}
 
-
-
-select {
   background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75em center;
   padding-right: 2em;
 }
+
+
+
 /* *****************************Radio ******************************* */
 
 .theme-switch {
@@ -456,11 +450,11 @@ select {
 }
 
 #theme-checkbox + label span:first-of-type {
-  color: #3a3a3a;
+  color: var(--primary-color);;
 }
 
 #theme-checkbox + label span:last-of-type {
-  color: #cecece;
+  color: var(--primary-color);;
 }
 
 

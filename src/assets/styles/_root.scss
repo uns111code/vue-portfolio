@@ -1,11 +1,12 @@
 :root {
   // --nav-position: 0;
-  --primary-color: rgba(72, 199, 142, 0.678); /* icon  */
-  --secondary-color: rgb(255, 255, 255);    /* bg */
-  --tertiary-color: rgb(37, 37, 37);    /* header */
+  --primary-color: hsl(240, 1%, 67%); /* icon  */
+  --secondary-color: hsl(0, 0%, 100%);    /* bg */
+  --tertiary-color: hsl(215, 95%, 15%);    /* header */
   --quaternary-color: rgb(0, 0, 0);        /* text */
-  --quinary-color: rgb(16, 193, 107);        /* title */
-  --senary-color: rgb(9, 93, 157);     /* btn */
+  --quinary-color: hsl(215, 95%, 15%);        /* title */
+  --senary-color: hsl(215, 95%, 15%);     /* btn */
+  --s: hsl(248, 10%, 16%);
   
   --border-color: rgb(197, 196, 196); /* #c5c4c4 */
   --svg-color: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 100%, rgba(255, 235, 59, 1) 100%);

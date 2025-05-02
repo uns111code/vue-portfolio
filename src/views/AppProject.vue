@@ -216,9 +216,13 @@ onUnmounted(() => {
     cursor: grab;
     user-select: none;
     overflow-x: auto; /* Permet de défiler sans barre visible */
-    scrollbar-width: smooth; /* Cacher la barre de défilement */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
     &::-webkit-scrollbar {
       display: none;
+    }
+    .items::-webkit-scrollbar {
+       display: none; /* Chrome, Safari, Edge */
     }
 
 

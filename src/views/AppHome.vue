@@ -1,20 +1,21 @@
 <script setup>
-import YounesImg from '@/assets/img/Younes.png'
+import YounesImg from '@/assets/img/Younes.png';
+import CV from '@/assets/CV-Younes-gris-simple.pdf';
 </script>
 
 <template>
   <section id="profil" class="profil">
     <div class="accueil">
       <h1 class="title">Younes Amini</h1>
-      <h4 class="text-color">Développeur Web</h4>
-      <a href="assets/CV-professionnel-gris-simple.pdf" download="Younes_Amini_CV.pdf" class="links download btn">
+      <h4 class="text-color cursor typewriter-animation">Développeur Web</h4>
+      <a :href="CV" download="CV-Younes-gris-simple.pdf" class="links download btn">
          Télécharger mon CV</a>
     </div>
     
     <div class="logo-section">
       <div class="logo">
         <div class="img-container">
-          <img :src="YounesImg" alt="" />
+          <img :src="YounesImg" alt="photo de Younes" />
         </div>
       </div>
     </div>
@@ -126,6 +127,35 @@ import YounesImg from '@/assets/img/Younes.png'
 
     flex-direction: row;
   }
+}
+
+
+
+
+
+
+
+
+.cursor{
+    border-right: 2px solid var(--primary-color);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 55%;
+}
+/* Animation */
+.typewriter-animation {
+  animation: 
+    typewriter 5s steps(50) 1s 1 normal both, 
+    blinkingCursor 500ms steps(50) infinite normal;
+}
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes blinkingCursor{
+  from { border-right-color: var(--primary-color); }
+  to { border-right-color: transparent; }
 }
 
 </style>

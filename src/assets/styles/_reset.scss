@@ -28,21 +28,12 @@ button {
 
 body {
     overflow-x: hidden;
-    // --nav-position: 0;
     background-color: var(--tertiary-color);
-    // color: var(--quaternary-color);
-    // font-family: "Red Hat Text", sans-serif;
-    // font-optical-sizing: auto;
-    // font-style: normal;
 }
 
 
 #app {
-    // display: flex;
-    // flex-direction: column;
     overflow-x: hidden;
-    // height: 150vh;
-
   }
 
   h2 {
@@ -60,7 +51,7 @@ body {
     border-radius: 8px;
     transition: all 0.1s ease-in-out;
     background-color: var(--senary-color);
-    color: var(--quaternary-color);
+    color: var(--secondary-color);
     &:hover {
         filter: drop-shadow(10px 10px 2px rgba(0, 0, 0, 0.571));
       }
@@ -84,12 +75,3 @@ body {
     }
 
 }
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    
-}
-
-// @media (min-width: 768px) and (max-width: 1230px) {
-//     #app  {
-//         overflow-y: scroll;
-//     }
-//   }
