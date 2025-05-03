@@ -30,11 +30,6 @@ footer {
   background-color: var(--tertiary-color);
 }
 
-
-
-
-
-
 /* --- Responsive --- */
 @media (min-width: 1024px) {
   footer {
@@ -45,6 +40,5 @@ footer {
   padding: 0;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-}
+
 </style>

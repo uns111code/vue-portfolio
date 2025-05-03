@@ -130,12 +130,6 @@ import CV from '@/assets/CV-Younes-gris-simple.pdf';
 }
 
 
-
-
-
-
-
-
 .cursor{
     border-right: 2px solid var(--primary-color);
     text-align: center;

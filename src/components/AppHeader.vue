@@ -302,8 +302,6 @@ header .hori-selector{
     bottom: 0;
       left: -25px;
   }
-
-
 }
 
 </style>

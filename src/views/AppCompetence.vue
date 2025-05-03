@@ -1,13 +1,6 @@
 <script setup>
 
-
-
-
-
-
-
-
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 const images = ref([]);
 // Récupère tous les fichiers d'un dossier

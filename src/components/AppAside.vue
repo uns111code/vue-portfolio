@@ -21,14 +21,9 @@ onMounted(() => {
   })
 })
 
-// Navigation simple
-const goTo = (url) => {
-  window.open(url, '_blank')
-}
 
 // Génère une couleur HSLA
 const hslaColor = computed(() => {
-  // const alpha = lightness.value
   return `hsla(${hue.value}, ${saturation.value}%, ${lightness.value}%, 1)`
 })
 
@@ -389,7 +384,6 @@ select {
 }
 
 #theme-checkbox + label {
-  /* change the font-size below to change the size of the switch button*/
   font-size: 2rem;
   height: 1em;
   width: 2.5em;
@@ -432,7 +426,6 @@ select {
 }
 
 #theme-checkbox:checked + label div {
-  /* left: calc(2.5em - .8em - .1em); */
   left: 1.6em;
   background-color: #212121;
 }

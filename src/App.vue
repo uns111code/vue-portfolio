@@ -130,17 +130,60 @@ onUnmounted(() => {
 
 
 
-
-
-
-
-
-
-
-
-
-
 <style lang="scss">
+body {
+    overflow-x: hidden;
+    background-color: var(--tertiary-color);
+}
+
+
+#app {
+    overflow-x: hidden;
+  }
+
+  h2 {
+    color: var(--primary-color);
+  }
+
+
+  .icon {
+    color: var(--primary-color);
+  }
+
+  .btn {
+    padding: .5rem 1rem;
+    z-index: 5;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+    background-color: var(--senary-color);
+    color: var(--secondary-color);
+    &:hover {
+        filter: drop-shadow(10px 10px 2px rgba(0, 0, 0, 0.571));
+      }
+  }
+
+  .title {
+    color: var(--quinary-color);
+  }
+
+  .text-color {
+    color: var(--quaternary-color);
+  }
+
+/* --- Responsive --- */
+@media (min-width: 1024px) {
+    body {
+        overflow-y: hidden;
+    }
+    #app  {
+        overflow-y: hidden;
+    }
+
+}
+
+
+
+
 main {
   position: relative;
   min-height: calc(100vh - 15vh - 87.2px);
@@ -150,9 +193,8 @@ main {
   position: absolute;
   width: 4rem;
   height: 4rem;
-  z-index: 100;
+  z-index: 9999;
   border-radius: 50%;
-
   border: 1px solid var(--primary-color);
   pointer-events: none; /* Empêche d’interférer avec les éléments */
 }
@@ -166,6 +208,7 @@ main {
   pointer-events: none;
   opacity: 0.6;
   animation: fadeOut 0.3s ease forwards;
+  z-index: 9999;
 }
 
 @keyframes fadeOut {
