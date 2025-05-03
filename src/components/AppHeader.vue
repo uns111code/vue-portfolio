@@ -142,7 +142,7 @@ nav {
     text-align: center;
     z-index: 10;
     background-color: var(--tertiary-color);
-
+    z-index: 99999;
     .item {
       a {
         display: flex;

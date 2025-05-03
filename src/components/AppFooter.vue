@@ -1,17 +1,17 @@
 <script setup></script>
 
 <template>
-  <footer class="text-color">
+  <footer class="icon">
     <p>&copy; 2025 Younes Amini</p>
 
     <nav>
-      <a href="#about">À propos</a> | <a href="#projects">Projets</a> |
-      <a href="#contact">Contact</a>
+      <RouterLink to="/about">À propos</RouterLink> | <RouterLink to="/project">Projets</RouterLink> |
+      <RouterLink to="/contact">Contact</RouterLink>
     </nav>
 
     <div class="socials">
-      <a href="https://github.com/mohamedbenali" target="_blank">GitHub </a>
-      <a href="https://linkedin.com/in/mohamedbenali" target="_blank"
+      <a href="https://github.com/uns111code" target="_blank">GitHub </a>
+      <a href="https://www.linkedin.com/in/younes-amini-82a555356/" target="_blank"
         > LinkedIn</a
       >
     </div>

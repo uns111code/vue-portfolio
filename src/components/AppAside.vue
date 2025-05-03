@@ -463,10 +463,10 @@ select {
 
 .socials {
   position: fixed;
-  z-index: 9999;
+  z-index: 999;
   bottom: 50vh;
-  left: 0%;
-  transform: translateY(50%);
+  left: -3%;
+  transform: translateY(40%);
 }
 
 /***section class="buttons"***/
@@ -474,7 +474,7 @@ select {
 .aside-buttons {
   position: relative; /* to apply posittion absolute on .button */
   padding: 5rem 5rem 5rem 1rem; /* increasing hover area effect */
-  opacity: 0.5;
+  opacity: 0.3;
   transition: all 1s ease;
 }
 
@@ -500,7 +500,7 @@ select {
 /***main button***/
 
 .social-button {
-  z-index: 9999;
+  z-index: 999;
 }
 
 .fa-diagram-project {
@@ -570,6 +570,15 @@ select {
 }
 .aside-buttons:hover .github-button {
   translate: 0px -50px;
+}
+
+
+
+
+@media (min-width: 1024px) {
+  .socials {
+  left: 0;
+}
 }
 
 </style>
