@@ -204,10 +204,10 @@ onMounted(() => {
           <i class="icon fa-brands fa-dev"></i>
         </button>
         <button
-          class="whatsapp-button aside-button"
-          onclick="location.href='https://www.whatsapp.com/'"
+          class="linkedin-button aside-button"
+          onclick="location.href='https://www.linkedin.com/in/younes-amini-82a555356/'"
         >
-          <i class="icon fa-brands fa-whatsapp"></i>
+          <i class="icon fa-brands fa-linkedin"></i>
         </button>
       </div>
     </section>
@@ -513,16 +513,16 @@ select {
   translate: 0px 50px;
 }
 
-/***whatsapp button***/
+/***linkedin button***/
 
-.whatsapp-button {
+.linkedin-button {
   transition-delay: 0.2s, 0s, 0.2s;
   transition-property: translate;
 }
-.whatsapp-button:hover {
+.linkedin-button:hover {
   background: #25d366;
 }
-.aside-buttons:hover .whatsapp-button {
+.aside-buttons:hover .linkedin-button {
   translate: 28px 32px;
 }
 
