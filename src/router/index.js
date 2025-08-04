@@ -6,22 +6,22 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'acceuil',
       component: Home
     },
     {
       path: '/about',
-      name: 'about',
+      name: 'profil',
       component: () => import('../views/AppAbout.vue')
     },
     {
       path: '/competence',
-      name: 'competence',
+      name: 'compétences',
       component: () => import('../views/AppCompetence.vue')
     },
     {
       path: '/project',
-      name: 'project',
+      name: 'portfolio',
       component: () => import('../views/AppProject.vue')
     },
     {
