@@ -102,10 +102,12 @@ images.value = Object.entries(modules).map(([path, mod]) => mod.default);
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 0.2rem 0;
 
         img {
           max-width: 100%;
           height: auto;
+          filter: drop-shadow(0 0 1px rgb(255, 255, 255));
         }
       }
     }
