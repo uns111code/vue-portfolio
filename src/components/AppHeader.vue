@@ -46,7 +46,7 @@ const toggleMenu = () => {
 // Fonction pour retourner une icône selon le nom de la route
 function getIconClass(name) {
   switch (name) {
-    case 'acceuil':
+    case 'accueil':
       return 'fa-solid fa-house'
     case 'profil':
       return 'fa-solid fa-user'
